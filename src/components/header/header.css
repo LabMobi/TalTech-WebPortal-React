@@ -1,0 +1,21 @@
+header {
+  background: linear-gradient(105.48deg, #4dbed2 10.84%, #342b60 89.16%);
+  width: 100%;
+  height: 128px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.header-content {
+  width: calc(100vw - 300px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    width: 90vw;
+  }
+}

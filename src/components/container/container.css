@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 140px;
+}
+
+.container-content {
+  width: calc(100vw - 300px);
+  background-color: white;
+  margin-top: 24px;
+  box-sizing: border-box;
+  padding: 24px 42px 24px 42px;
+  gap: 32px;
+  box-shadow: 6px 6px 20px 0px #0000001a;
+}
+
+.container-title-text {
+  width: calc(100vw - 300px);
+}
+
+.app-form-title-text {
+  font-family: ProximaNova-Extrabold;
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 32px;
+  letter-spacing: 0em;
+  padding-top: 36px;
+}
+
+@media (max-width: 768px) {
+  .container-content {
+    width: 90vw;
+  }
+  .container-title-text {
+    width: 90vw;
+  }
+}

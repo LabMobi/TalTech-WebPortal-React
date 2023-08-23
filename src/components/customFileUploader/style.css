@@ -1,0 +1,19 @@
+.custom-file-uploader-container {
+  margin-top: 32px;
+}
+
+.file-uploader-label-text {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+
+.file-uploader-sublabel-text {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+}

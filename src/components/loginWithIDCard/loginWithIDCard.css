@@ -1,0 +1,14 @@
+.login-option-container {
+  margin-top: 32px;
+  gap: 16px;
+}
+
+.login-option-description-text {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+}
+.login-continue-button {
+  margin-top: 16px;
+}

@@ -1,0 +1,17 @@
+.custom-date-picker-container {
+  position: relative;
+  width: 226px;
+}
+.custom-date-picker {
+  width: 226px;
+  height: 40px;
+  padding: 0px 8px 0px 8px;
+  border-radius: 4px;
+  gap: 8px;
+  border: 1px solid #6e7184;
+}
+.custom-date-picker-calendar-icon {
+  position: absolute;
+  top: 8px;
+  right: 5px;
+}

@@ -1,0 +1,29 @@
+.address-selection {
+  align-items: center;
+}
+@media (max-width: 768px) {
+  .address-selection {
+    flex-direction: column;
+    align-items: unset;
+  }
+  .inads-input-container {
+    width: 100% !important;
+  }
+}
+
+.inads-input {
+  height: 40px !important;
+  padding: 10px;
+  border-radius: 4px;
+  gap: 10px;
+  border: 1px solid #6e7184;
+}
+.inads-appartment {
+  border: 1px solid #6e7184;
+}
+.inads-appartment {
+  height: 40px !important;
+}
+.inads-copyright {
+  top: 40px;
+}

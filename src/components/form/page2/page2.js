@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
@@ -10,7 +10,8 @@ import {
 } from "../../../redux/actions/types";
 import { phoneCodes } from "../../../constants/phoneCodes";
 import InAdsWidget from "../../inADSWidget/inADSWidget";
-
+import "./style.css";
+import { checkEmailFormat } from "../../../helpers/helpers";
 const Page2 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const Page2 = () => {
   const updateFormFields = (payload) => {
     dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
   };
+  console.log("formFields: ", formFields);
   const onContinue = () => {
     dispatch(actionCreator(SET_FORM_PAGE, 3));
   };
@@ -28,7 +30,7 @@ const Page2 = () => {
     if (
       formFields.phoneCode &&
       formFields.phoneNumber &&
-      formFields.email &&
+      checkEmailFormat(formFields.email) &&
       formFields.residentalAddress
     ) {
       return true;
@@ -40,6 +42,14 @@ const Page2 = () => {
     formFields.phoneNumber,
     formFields.residentalAddress,
   ]);
+  const [showEmailFormatError, setShowEmailFormatError] = useState(false);
+  const onBlurEmail = () => {
+    if (checkEmailFormat(formFields.email)) {
+      setShowEmailFormatError(false);
+    } else {
+      setShowEmailFormatError(true);
+    }
+  };
   return (
     <div>
       <Text as="h3">{t("form.page2.title")}</Text>
@@ -49,7 +59,7 @@ const Page2 = () => {
           event.preventDefault();
         }}
       >
-        <div className="d-flex">
+        <div className="d-flex phone-number-container">
           <TextInput
             inputContainerStyle={{ width: 110 }}
             isSelection
@@ -60,15 +70,19 @@ const Page2 = () => {
             fieldName={"dial_code"}
           />
           <TextInput
+            type={"number"}
             inputContainerStyle={{ marginLeft: 6, width: 110 }}
             value={formFields.phoneNumber}
             onChange={(val) => updateFormFields({ phoneNumber: val })}
           />
         </div>
         <TextInput
+          inputProps={{ onBlur: onBlurEmail }}
           value={formFields.email}
           onChange={(val) => updateFormFields({ email: val })}
           label={t("email")}
+          showFeedback={showEmailFormatError}
+          errorMessage={t("wrongEmailFormat")}
         />
 
         <InAdsWidget
@@ -79,17 +93,18 @@ const Page2 = () => {
             updateFormFields({ residentalAddress: val })
           }
         />
-
-        <TTNewButton variant="outline" onClick={onBack}>
-          {t("back")}
-        </TTNewButton>
-        <TTNewButton
-          style={{ marginLeft: 16 }}
-          onClick={onContinue}
-          disabled={!canContinue}
-        >
-          {t("continue")}
-        </TTNewButton>
+        <div style={{ marginTop: 40 }}>
+          <TTNewButton variant="outline" onClick={onBack}>
+            {t("back")}
+          </TTNewButton>
+          <TTNewButton
+            style={{ marginLeft: 16 }}
+            onClick={onContinue}
+            disabled={!canContinue}
+          >
+            {t("continue")}
+          </TTNewButton>
+        </div>
       </Form>
     </div>
   );

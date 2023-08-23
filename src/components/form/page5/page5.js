@@ -8,9 +8,9 @@ import {
   SET_FORM_PAGE,
   UPDATE_FORM_FIELDS,
 } from "../../../redux/actions/types";
-import CustomDatePicker from "../../customDatePicker";
 import { defaultPage5ChildrenForm } from "../../../redux/reducers/app.reducer";
 import uuid from "react-uuid";
+import TextDatePicker from "../../textDatePicker/textDatePicker";
 
 const Page5 = () => {
   const { t } = useTranslation();
@@ -25,7 +25,7 @@ const Page5 = () => {
   const onBack = () => {
     dispatch(actionCreator(SET_FORM_PAGE, 4));
   };
-
+  console.log("formFields: ", formFields);
   const canContinue = useMemo(() => {
     if (
       !formFields.noChildren &&
@@ -47,13 +47,21 @@ const Page5 = () => {
     updateFormFields({ page5ChildrenForm: updatedChildrenForm });
   };
 
-  const addNewEducationForm = () => {
+  const addNewChildrenForm = () => {
     const updatedChildrenForm = [
       ...formFields.page5ChildrenForm,
       { ...defaultPage5ChildrenForm[0], id: uuid() },
     ];
     updateFormFields({ page5ChildrenForm: updatedChildrenForm });
   };
+
+  const onRemove = (index) => {
+    const updatedChildrenForm = formFields.page5ChildrenForm.filter(
+      (e, i) => index !== i
+    );
+    updateFormFields({ page5ChildrenForm: updatedChildrenForm });
+  };
+
   return (
     <div>
       <Text as="h3">{t("form.page5.title")}</Text>
@@ -98,17 +106,41 @@ const Page5 = () => {
                 onChange={(val) => updateChildrenForm("surName", val, i)}
                 label={t("form.page5.Perenimi")}
               />
-              <CustomDatePicker
+              <TextDatePicker
                 labelStyle={{ marginRight: 32 }}
-                label={t("form.page5.Sünnikuupäev")}
-                value={new Date(formFields.page5ChildrenForm[i].date)}
-                onChange={(val) => updateChildrenForm("date", val, i)}
+                label={t("form.page3.graduateDate")}
+                dayValue={formFields.page5ChildrenForm[i].dayOfbirthday}
+                monthValue={formFields.page5ChildrenForm[i].monthOfbirthday}
+                yearValue={formFields.page5ChildrenForm[i].yearOfBirthday}
+                onDayChange={(val) =>
+                  updateChildrenForm("dayOfbirthday", val, i)
+                }
+                onMonthChange={(val) =>
+                  updateChildrenForm("monthOfbirthday", val, i)
+                }
+                onYearChange={(val) =>
+                  updateChildrenForm("yearOfBirthday", val, i)
+                }
               />
+
+              {formFields.page5ChildrenForm.length > 1 && (
+                <TTNewButton
+                  style={{ textDecoration: "underline", marginTop: 16 }}
+                  onClick={() => onRemove(i)}
+                  variant="link"
+                >
+                  {t("remove")}
+                </TTNewButton>
+              )}
             </div>
           );
         })}
         <div>
-          <TTNewButton onClick={addNewEducationForm} variant="link">
+          <TTNewButton
+            style={{ textDecoration: "underline" }}
+            onClick={addNewChildrenForm}
+            variant="link"
+          >
             {t("addMore")}
           </TTNewButton>
         </div>

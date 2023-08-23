@@ -1,0 +1,9 @@
+@media (max-width: 860px) {
+  .do-not-have-id-checkbox {
+    margin-left: 0 !important;
+  }
+
+  .page1-gender-checkboxes {
+    margin-left: 0 !important;
+  }
+}

@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TTNewButton, Text, Input, Form } from "taltech-styleguide";
+import {
+  TTNewButton,
+  Text,
+  Input,
+  Form,
+  FormFeedback,
+} from "taltech-styleguide";
 import "./loginWithEmail.css";
 import { getCurrentLanguage } from "../../localization/i18n.config";
+import { checkEmailFormat } from "../../helpers/helpers";
 
 const LoginWithEmail = ({ setIsOTPSent }) => {
   const { t } = useTranslation();
@@ -11,6 +18,14 @@ const LoginWithEmail = ({ setIsOTPSent }) => {
     setIsOTPSent(true);
   };
   const [email, setEmail] = useState("");
+  const [showEmailFormatError, setShowEmailFormatError] = useState(false);
+  const onBlurEmail = () => {
+    if (checkEmailFormat(email)) {
+      setShowEmailFormatError(false);
+    } else {
+      setShowEmailFormatError(true);
+    }
+  };
   return (
     <div className="login-option-container">
       <Text as="h4">{t("email")}</Text>
@@ -50,6 +65,7 @@ const LoginWithEmail = ({ setIsOTPSent }) => {
       >
         <Form.Label>{t("enter-your-email")}</Form.Label>
         <Input
+          onBlur={onBlurEmail}
           onChange={(e) => setEmail(e.target.value)}
           className="login-email-input"
           size="sm"
@@ -57,10 +73,14 @@ const LoginWithEmail = ({ setIsOTPSent }) => {
           default
           placeholder=""
         />
+        {showEmailFormatError && (
+          <FormFeedback type="danger">{t("wrongEmailFormat")}</FormFeedback>
+        )}
       </Form>
+
       <TTNewButton
         value={email}
-        disabled={email.length < 5}
+        disabled={!checkEmailFormat(email)}
         onClick={onSendOTP}
         className="login-continue-button"
         variant="secondary"

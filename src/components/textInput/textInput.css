@@ -10,3 +10,17 @@
 .text-input-required-star {
   margin-left: 4px !important;
 }
+
+@media (max-width: 768px) {
+  .input-label-container {
+    flex-direction: column;
+  }
+  .text-input-label {
+    width: unset;
+  }
+}
+
+.phone-number-container input {
+  height: 38px;
+  border-radius: 4px;
+}

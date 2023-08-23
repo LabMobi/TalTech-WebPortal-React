@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "./container.css";
 import { useTranslation } from "react-i18next";
 import { TTNewButton, Text } from "taltech-styleguide";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreator } from "../../redux/actions/common.actions";
+import { LOGOUT } from "../../redux/actions/types";
 const Container = ({ children }) => {
   const { t } = useTranslation();
   const { isLoggedIn, formPage } = useSelector((state) => state.app);
@@ -10,6 +12,7 @@ const Container = ({ children }) => {
   const isSaveButtonVisible = isLoggedIn && formPage !== "result";
   const [isSavingLoading, setIsSavingLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+  const dispatch = useDispatch();
 
   const onSave = () => {
     setIsSavingLoading(true);
@@ -20,7 +23,8 @@ const Container = ({ children }) => {
       setIsSaved(true);
       setTimeout(() => {
         setIsSaved(false);
-      }, 5000);
+        dispatch(actionCreator(LOGOUT));
+      }, 2000);
     }, 2500);
   };
 
@@ -36,9 +40,12 @@ const Container = ({ children }) => {
             isLoading={isSavingLoading}
             onClick={onSave}
             style={{ marginTop: 36 }}
+            className="container-save-button"
             variant={isSaved ? "success" : "outline"}
           >
-            {t("saveAndLeave")}
+            <Text as="p" className="save-and-leave-text">
+              {isSaved ? t("saved") : t("saveAndLeave")}
+            </Text>
           </TTNewButton>
         )}
       </div>

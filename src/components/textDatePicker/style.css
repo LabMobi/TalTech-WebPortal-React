@@ -1,0 +1,10 @@
+@media (max-width: 768px) {
+  .text-date-picker-container {
+    align-items: flex-end;
+  }
+}
+@media (max-width: 860px) {
+  .text-date-picker-container {
+    align-items: end;
+  }
+}

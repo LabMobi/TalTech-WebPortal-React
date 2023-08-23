@@ -9,7 +9,7 @@ import {
   UPDATE_FORM_FIELDS,
 } from "../../../redux/actions/types";
 import { getCurrentLanguage } from "../../../localization/i18n.config";
-
+import "./style.css";
 const Page4 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -48,6 +48,7 @@ const Page4 = () => {
           label={t("form.page4.ORD-IDnumber")}
         />
         <div
+          className="orc-description-text"
           style={{
             marginLeft: 220,
           }}
@@ -79,9 +80,11 @@ const Page4 = () => {
           )}
         </div>
         <CustomInput
+          className="orc-checkbox"
           style={{
             margin: 0,
             marginLeft: 220,
+            marginBottom: 40,
           }}
           label={t("form.page4.ORD-required")}
           checked={formFields.orcIdNotNeeded}

@@ -8,15 +8,14 @@ import {
   SET_FORM_PAGE,
   UPDATE_FORM_FIELDS,
 } from "../../../redux/actions/types";
-import CustomDatePicker from "../../customDatePicker";
 import { defaultPage3EducationForm } from "../../../redux/reducers/app.reducer";
 import uuid from "react-uuid";
+import TextDatePicker from "../../textDatePicker/textDatePicker";
 
 const Page3 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields } = useSelector((state) => state.app);
-
   const updateFormFields = (payload) => {
     dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
   };
@@ -30,17 +29,16 @@ const Page3 = () => {
     if (
       formFields.page3EducationForm[0].educationLevel &&
       formFields.page3EducationForm[0].graduatedInstutation &&
-      formFields.page3EducationForm[0].date
+      formFields.page3EducationForm[0].graduateDay &&
+      formFields.page3EducationForm[0].graduateMonth &&
+      formFields.page3EducationForm[0].graduateYear
     ) {
       return true;
     }
     return false;
   }, [formFields.page3EducationForm]);
+  console.log("formFields.page3EducationForm: ", formFields.page3EducationForm);
   const educationLevels = [
-    {
-      name: "Select",
-      key: "select",
-    },
     {
       name: t("education.Põhiharidus"),
       key: "Põhiharidus",
@@ -87,6 +85,13 @@ const Page3 = () => {
     updateFormFields({ page3EducationForm: updatedEducationForm });
   };
 
+  const onRemove = (index) => {
+    const updatedEducationForm = formFields.page3EducationForm.filter(
+      (e, i) => index !== i
+    );
+    updateFormFields({ page3EducationForm: updatedEducationForm });
+  };
+
   return (
     <div>
       <Text as="h3">{t("form.page3.title")}</Text>
@@ -129,17 +134,40 @@ const Page3 = () => {
                 }
                 label={t("form.page3.instutation")}
               />
-              <CustomDatePicker
+              <TextDatePicker
                 labelStyle={{ marginRight: 32 }}
                 label={t("form.page3.graduateDate")}
-                value={new Date(formFields.page3EducationForm[i].date)}
-                onChange={(val) => updateEducationForm("date", val, i)}
+                dayValue={formFields.page3EducationForm[i].graduateDay}
+                monthValue={formFields.page3EducationForm[i].graduateMonth}
+                yearValue={formFields.page3EducationForm[i].graduateYear}
+                onDayChange={(val) =>
+                  updateEducationForm("graduateDay", val, i)
+                }
+                onMonthChange={(val) =>
+                  updateEducationForm("graduateMonth", val, i)
+                }
+                onYearChange={(val) =>
+                  updateEducationForm("graduateYear", val, i)
+                }
               />
+              {formFields.page3EducationForm.length > 1 && (
+                <TTNewButton
+                  style={{ textDecoration: "underline", marginTop: 16 }}
+                  onClick={() => onRemove(i)}
+                  variant="link"
+                >
+                  {t("remove")}
+                </TTNewButton>
+              )}
             </div>
           );
         })}
         <div>
-          <TTNewButton onClick={addNewEducationForm} variant="link">
+          <TTNewButton
+            style={{ textDecoration: "underline", marginBottom: 40 }}
+            onClick={addNewEducationForm}
+            variant="link"
+          >
             {t("addMore")}
           </TTNewButton>
         </div>

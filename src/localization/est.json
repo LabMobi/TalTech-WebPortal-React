@@ -59,5 +59,10 @@
   "result.formSent": "Ankeet on edukalt saadetud",
   "result.safelyLogout": "Võite keskkonnast turvaliselt väljalogida.",
   "logout": "Logi välja",
-  "saveAndLeave": "Salvesta ja lahku"
+  "saveAndLeave": "Salvesta ja lahku",
+  "saved": "Salvestatud",
+  "remove": "Eemaldada",
+  "sendDetails": "Saada andmed",
+  "select": "Vali",
+  "wrongEmailFormat": "Vale meilivorming"
 }

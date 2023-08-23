@@ -13,7 +13,9 @@ export const defaultPage3EducationForm = [
   {
     educationLevel: "",
     graduatedInstutation: "",
-    date: new Date(),
+    graduateDay: "",
+    graduateMonth: "",
+    graduateYear: "",
     id: uuid(),
   },
 ];
@@ -21,7 +23,9 @@ export const defaultPage5ChildrenForm = [
   {
     firstName: "",
     surName: "",
-    date: new Date(),
+    dayOfbirthday: "",
+    monthOfbirthday: "",
+    yearOfBirthday: "",
     id: uuid(),
   },
 ];
@@ -30,7 +34,9 @@ const defaultFormFields = {
   surname: "",
   personalIDNumber: "",
   doNotHaveAnIDNumber: false,
-  dateOfBirth: new Date(),
+  dayOfbirthday: "",
+  monthOfbirthday: "",
+  yearOfBirthday: "",
   woman: false,
   man: false,
   nationality: "",

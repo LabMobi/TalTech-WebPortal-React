@@ -71,6 +71,7 @@ const Page6 = () => {
         {t("form.page6.subtitle")}
       </Text>
       <CustomFileUploader
+        type="idCard"
         files={formFields.copyOfIdentity.map((e) => {
           return { fileObject: e };
         })}
@@ -80,6 +81,7 @@ const Page6 = () => {
         sublabel={t("form.page6.forPersonalIdentification")}
       />
       <CustomFileUploader
+        type="photo"
         files={formFields.photo.map((e) => {
           return { fileObject: e };
         })}
@@ -107,7 +109,7 @@ const Page6 = () => {
           onClick={onContinue}
           disabled={!canContinue}
         >
-          {t("continue")}
+          {t("sendDetails")}
         </TTNewButton>
       </div>
     </div>

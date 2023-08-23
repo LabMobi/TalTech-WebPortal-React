@@ -7,7 +7,7 @@
 }
 
 .container-content {
-  width: calc(100vw - 300px);
+  width: calc(100vw - 40%);
   background-color: white;
   margin-top: 24px;
   box-sizing: border-box;
@@ -17,7 +17,7 @@
 }
 
 .container-title-text {
-  width: calc(100vw - 300px);
+  width: calc(100vw - 40%);
 }
 
 .app-form-title-text {
@@ -35,5 +35,32 @@
   }
   .container-title-text {
     width: 90vw;
+  }
+  .container-title-text {
+    flex-direction: column;
+  }
+  .container-save-button {
+    margin-top: 0px !important;
+    width: 170px;
+    height: 40px;
+    gap: 10px;
+  }
+  .save-and-leave-text {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+  .container-content {
+    padding: 24px 16px 24px 16px;
+  }
+}
+
+@media (max-width: 905px) {
+  .container-save-button {
+    width: 170px;
+    height: 40px;
+    gap: 10px;
   }
 }

@@ -1,6 +1,7 @@
 import React from "react";
-import { Form, Input, Text } from "taltech-styleguide";
+import { Form, FormFeedback, Input, Text, Typeahead } from "taltech-styleguide";
 import "./textInput.css";
+import { useTranslation } from "react-i18next";
 const TextInput = ({
   label,
   onChange,
@@ -14,6 +15,9 @@ const TextInput = ({
   type,
   labelStyle,
   fieldName,
+  inputProps,
+  showFeedback,
+  errorMessage,
 }) => {
   const inputStyle = {
     width: 226,
@@ -24,11 +28,12 @@ const TextInput = ({
 
     ...inputContainerStyle,
   };
+  const { t } = useTranslation();
   return (
-    <div style={containerStyle} className="d-flex">
+    <div className="d-flex input-label-container" style={containerStyle}>
       {label && (
         <Form.Label
-          className="text-input-label d-flex align-items-center"
+          className="text-input-label d-flex align-items-start"
           style={{ margin: 0, ...labelStyle }}
         >
           <Text color="primary"> {label}: </Text>
@@ -38,7 +43,41 @@ const TextInput = ({
         </Form.Label>
       )}
       {isSelection ? (
-        <Input
+        <div style={{ zIndex: 99999 }}>
+          <Typeahead
+            placeholder={t("select")}
+            style={inputStyle}
+            id={"typehead"}
+            value={value}
+            onChange={(e) => onChange(e[0])}
+            options={selectionData.map((e) => {
+              return e[fieldName];
+            })}
+          />
+        </div>
+      ) : (
+        <div>
+          <Input
+            {...inputProps}
+            type={type ? type : ""}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            label={label}
+            style={inputStyle}
+            placeholder={placeholder}
+          />
+          {showFeedback && (
+            <FormFeedback type="danger">{errorMessage}</FormFeedback>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default TextInput;
+
+/* <Input
           as="select"
           value={value}
           onChange={(e) => onChange(e.target.value)}
@@ -49,19 +88,4 @@ const TextInput = ({
           {selectionData.map((e) => {
             return <option key={e.key}>{e[fieldName]}</option>;
           })}
-        </Input>
-      ) : (
-        <Input
-          type={type ? type : ""}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          label={label}
-          style={inputStyle}
-          placeholder={placeholder}
-        />
-      )}
-    </div>
-  );
-};
-
-export default TextInput;
+        </Input> */

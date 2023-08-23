@@ -8,8 +8,8 @@ import {
   SET_FORM_PAGE,
   UPDATE_FORM_FIELDS,
 } from "../../../redux/actions/types";
-import CustomDatePicker from "../../customDatePicker";
-
+import "./page1.css";
+import TextDatePicker from "../../textDatePicker/textDatePicker";
 const Page1 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -24,21 +24,33 @@ const Page1 = () => {
 
   const canContinue = useMemo(() => {
     if (
-      formFields.name &&
-      formFields.surname &&
-      formFields.nationality &&
-      formFields.countryOfTaxResidence &&
-      formFields.iban
+      (!formFields.doNotHaveAnIDNumber &&
+        formFields.name &&
+        formFields.surname &&
+        formFields.nationality &&
+        formFields.countryOfTaxResidence &&
+        formFields.iban) ||
+      (formFields.doNotHaveAnIDNumber &&
+        formFields.dayOfbirthday &&
+        formFields.monthOfbirthday &&
+        formFields.yearOfBirthday &&
+        (formFields.woman || formFields.man))
     ) {
       return true;
     }
     return false;
   }, [
     formFields.countryOfTaxResidence,
+    formFields.dayOfbirthday,
+    formFields.doNotHaveAnIDNumber,
     formFields.iban,
+    formFields.man,
+    formFields.monthOfbirthday,
     formFields.name,
     formFields.nationality,
     formFields.surname,
+    formFields.woman,
+    formFields.yearOfBirthday,
   ]);
 
   return (
@@ -61,10 +73,14 @@ const Page1 = () => {
           label={t("form.page1.lastName")}
         />
         {formFields.doNotHaveAnIDNumber && (
-          <CustomDatePicker
+          <TextDatePicker
             label={t("form.page1.dateOfBirthday")}
-            value={new Date(formFields.dateOfBirth)}
-            onChange={(val) => updateFormFields({ dateOfBirth: val })}
+            dayValue={formFields.dayOfbirthday}
+            monthValue={formFields.monthOfbirthday}
+            yearValue={formFields.yearOfBirthday}
+            onDayChange={(e) => updateFormFields({ dayOfbirthday: e })}
+            onMonthChange={(e) => updateFormFields({ monthOfbirthday: e })}
+            onYearChange={(e) => updateFormFields({ yearOfBirthday: e })}
           />
         )}
         {!formFields.doNotHaveAnIDNumber && (
@@ -89,6 +105,7 @@ const Page1 = () => {
                 })
               }
               type="checkbox"
+              className="page1-gender-checkboxes"
             />
             <CustomInput
               style={{
@@ -107,6 +124,7 @@ const Page1 = () => {
           </div>
         )}
         <CustomInput
+          className="do-not-have-id-checkbox"
           style={{
             margin: 0,
             marginLeft: 220,
@@ -138,7 +156,11 @@ const Page1 = () => {
           onChange={(val) => updateFormFields({ iban: val })}
           label={t("form.page1.iban")}
         />
-        <TTNewButton onClick={onContinue} disabled={!canContinue}>
+        <TTNewButton
+          style={{ marginTop: 24 }}
+          onClick={onContinue}
+          disabled={!canContinue}
+        >
           {t("continue")}
         </TTNewButton>
       </Form>

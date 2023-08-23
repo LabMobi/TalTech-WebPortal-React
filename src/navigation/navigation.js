@@ -16,13 +16,15 @@ const Navigation = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const storedData = localStorage.getItem("appState");
-    if (storedData) {
-      const parsedObject = JSON.parse(storedData);
-      dispatch(actionCreator(SET_ALL_LOCAL_DATA, parsedObject));
+    if (isLoggedIn) {
+      const storedData = localStorage.getItem("appState");
+      if (storedData) {
+        const parsedObject = JSON.parse(storedData);
+        dispatch(actionCreator(SET_ALL_LOCAL_DATA, parsedObject));
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isLoggedIn]);
 
   const renderForm = useCallback(() => {
     switch (formPage) {

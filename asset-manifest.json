@@ -1,0 +1,34 @@
+{
+  "files": {
+    "main.css": "/TalTech-WebPortal-React/static/css/main.fd63857d.css",
+    "main.js": "/TalTech-WebPortal-React/static/js/main.f9c5e4d8.js",
+    "static/js/787.b230d953.chunk.js": "/TalTech-WebPortal-React/static/js/787.b230d953.chunk.js",
+    "static/media/Proxima Nova Bold.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Bold.da16c8975f25ca6f2997.otf",
+    "static/media/Proxima Nova Black.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Black.3368220d5963fa57a290.otf",
+    "static/media/Proxima Nova Extrabold.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Extrabold.c9d202c8ffb95b6ec8c1.otf",
+    "static/media/Proxima Nova Light.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Light.cda31342d2f74e410c0a.otf",
+    "static/media/Proxima Nova Semibold.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Semibold.227817852e96b494055e.otf",
+    "static/media/Proxima Nova Regular.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Regular.7bc9ce404c297c24f210.otf",
+    "static/media/ProximaNova-Thin.otf": "/TalTech-WebPortal-React/static/media/ProximaNova-Thin.b0d2279d75279ba5b3fd.otf",
+    "static/media/ProximaNova-Bold.woff": "/TalTech-WebPortal-React/static/media/ProximaNova-Bold.31b9e85e720c6e1c66e6.woff",
+    "static/media/ProximaNova-Extrabld.woff": "/TalTech-WebPortal-React/static/media/ProximaNova-Extrabld.9b8fc2e78d55a59d8a30.woff",
+    "static/media/ProximaNova-Regular.woff": "/TalTech-WebPortal-React/static/media/ProximaNova-Regular.df0a5742326f0430e2dc.woff",
+    "static/media/ProximaNova-Light.woff": "/TalTech-WebPortal-React/static/media/ProximaNova-Light.c82d7d10be2df734c1be.woff",
+    "static/media/ProximaNova-Black.woff": "/TalTech-WebPortal-React/static/media/ProximaNova-Black.fab671aab8cb72f008d7.woff",
+    "static/media/ProximaNova-Bold.woff2": "/TalTech-WebPortal-React/static/media/ProximaNova-Bold.1fe25dca83657e574d7a.woff2",
+    "static/media/ProximaNova-Light.woff2": "/TalTech-WebPortal-React/static/media/ProximaNova-Light.0232c448b7217a459719.woff2",
+    "static/media/ProximaNova-Regular.woff2": "/TalTech-WebPortal-React/static/media/ProximaNova-Regular.42a8d3dd7966cd335fb8.woff2",
+    "static/media/ProximaNova-Extrabld.woff2": "/TalTech-WebPortal-React/static/media/ProximaNova-Extrabld.0d1482489dde461ecac2.woff2",
+    "static/media/ProximaNova-Black.woff2": "/TalTech-WebPortal-React/static/media/ProximaNova-Black.e3b8744a8709750ac300.woff2",
+    "static/media/TalTechLogo.svg": "/TalTech-WebPortal-React/static/media/TalTechLogo.dadd436066e31884e0d0f349cfbd037c.svg",
+    "static/media/CalendarIcon.svg": "/TalTech-WebPortal-React/static/media/CalendarIcon.457a95dcbef4bd24ef5ed690b958f1af.svg",
+    "index.html": "/TalTech-WebPortal-React/index.html",
+    "main.fd63857d.css.map": "/TalTech-WebPortal-React/static/css/main.fd63857d.css.map",
+    "main.f9c5e4d8.js.map": "/TalTech-WebPortal-React/static/js/main.f9c5e4d8.js.map",
+    "787.b230d953.chunk.js.map": "/TalTech-WebPortal-React/static/js/787.b230d953.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fd63857d.css",
+    "static/js/main.f9c5e4d8.js"
+  ]
+}

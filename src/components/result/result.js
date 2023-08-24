@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { TTNewButton, Text } from "taltech-styleguide";
 import { LOGOUT } from "../../redux/actions/types";
 import { actionCreator } from "../../redux/actions/common.actions";
-
+import "./style.css";
 const Result = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Result = () => {
       <Text color="primary" as="p">
         {t("result.safelyLogout")}
       </Text>
-      <TTNewButton onClick={onLogout} style={{ marginTop: 40 }}>
+      <TTNewButton onClick={onLogout} className="logout-button">
         {t("logout")}
       </TTNewButton>
     </div>

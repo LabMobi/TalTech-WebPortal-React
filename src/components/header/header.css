@@ -14,7 +14,7 @@ header {
   justify-content: space-between;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .header-content {
     width: 90vw;
   }

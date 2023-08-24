@@ -13,6 +13,7 @@ export const defaultPage3EducationForm = [
   {
     educationLevel: "",
     graduatedInstutation: "",
+    numberOfGraduation: "",
     graduateDay: "",
     graduateMonth: "",
     graduateYear: "",

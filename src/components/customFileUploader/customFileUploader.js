@@ -2,6 +2,9 @@ import React from "react";
 import { TTNewFileUpload, Text } from "taltech-styleguide";
 import "./style.css";
 import { getCurrentLanguage } from "../../localization/i18n.config";
+import { useTranslation } from "react-i18next";
+import { isMobile as isDeviceMobile } from "react-device-detect";
+
 const CustomFileUploader = ({
   onChange,
   onRemove,
@@ -11,7 +14,7 @@ const CustomFileUploader = ({
   type,
 }) => {
   const currentLanguage = getCurrentLanguage();
-
+  const { t } = useTranslation();
   return (
     <div className="custom-file-uploader-container">
       <div className="d-flex ">
@@ -37,11 +40,15 @@ const CustomFileUploader = ({
         onRemove={onRemove}
         subTitleText={
           type === "photo"
-            ? "(JPG; 1300 x 1600px; file size 1-5MB)"
-            : "(Max file size 5MB)"
+            ? `(JPG; 1300 x 1600px; ${t("fileSize")} 1-5MB)`
+            : `(${t("maxFileSize")} 5MB)`
         }
         titleText={
-          currentLanguage === "est" ? (
+          isDeviceMobile ? (
+            <span className="text-secondary">
+              {t("mobile-file-upload-title")}
+            </span>
+          ) : currentLanguage === "est" ? (
             <>
               Manuse lisamiseks lohista failid siia{" "}
               <p className="text-secondary">Laadi arvutist</p>

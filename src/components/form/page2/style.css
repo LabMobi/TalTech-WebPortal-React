@@ -1,5 +1,26 @@
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .phone-number-container {
     align-items: end;
   }
+}
+
+.phone-area-input {
+  width: 110px;
+  z-index: 99999;
+}
+
+.phone-number-input {
+  width: 110px;
+  margin-left: 6px;
+}
+
+.page2-bottom-button-container {
+  margin-top: 40px;
+}
+
+.page2-continue-button {
+  margin-left: 16px;
+}
+.page2-email-input input {
+  height: 38px;
 }

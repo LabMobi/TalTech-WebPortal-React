@@ -39,7 +39,6 @@ const Container = ({ children }) => {
           <TTNewButton
             isLoading={isSavingLoading}
             onClick={onSave}
-            style={{ marginTop: 36 }}
             className="container-save-button"
             variant={isSaved ? "success" : "outline"}
           >

@@ -1,17 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Form, Text } from "taltech-styleguide";
 import "./style.css";
+import { getCurrentLanguage } from "../../localization/i18n.config";
+import { useTranslation } from "react-i18next";
 const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
+  const { t } = useTranslation();
   var inAadress;
+
   useEffect(() => {
     if (selectedAddress && inAadress && inAadress.setAddress) {
       inAadress.setAddress(selectedAddress, false);
     }
   }, [inAadress, selectedAddress]);
-
+  const currentLanguage = getCurrentLanguage();
   useEffect(() => {
     if (window.InAadress) {
       // eslint-disable-next-line no-undef
@@ -21,7 +25,7 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
           mode: 3,
           ihist: "1993",
           appartment: 1,
-          lang: "en",
+          lang: currentLanguage === "est" ? "et" : "en",
         });
       }
 
@@ -40,21 +44,13 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    const inputSearch = document.querySelector(".inads-input-search");
-    if (inputSearch) {
-      inputSearch.style.backgroundImage =
-        'url("https://www.svgrepo.com/show/3948/search-magnifier-outline.svg")';
-      inputSearch.style.backgroundSize = "14px 14px";
-      inputSearch.style.backgroundPosition = "center";
-    }
 
-    const inputClear = document.querySelector(".inads-input-clear");
-    if (inputClear) {
-      inputClear.style.backgroundImage =
-        'url("https://www.svgrepo.com/show/506648/clear.svg")';
-      inputClear.style.backgroundSize = "24px 24px";
-      inputClear.style.backgroundPosition = "center";
+  useEffect(() => {
+    const inputElement = document.querySelector(
+      "#InAadressDiv > div.inads-input-div > input"
+    );
+    if (inputElement) {
+      inputElement.placeholder = t("form.page2.searchForAnAddress");
     }
   }, []);
 
@@ -85,8 +81,48 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
     }
   }, []);
 
+  const appartmentRef = useRef(null);
+
+  useEffect(() => {
+    const observerCallback = (mutationsList) => {
+      for (const mutation of mutationsList) {
+        if (
+          mutation.type === "childList" &&
+          mutation.target.classList.contains("inads-appartment")
+        ) {
+          const target = mutation.target;
+
+          const optionText =
+            target.querySelector("option[selected]").textContent;
+
+          if (optionText === "vali korter") {
+            target.querySelector("option[selected]").textContent = "krt";
+          }
+          if (optionText === "choose appartment") {
+            target.querySelector("option[selected]").textContent = "apt.";
+          }
+        }
+      }
+    };
+
+    const observer = new MutationObserver(observerCallback);
+
+    if (appartmentRef.current) {
+      observer.observe(appartmentRef.current, {
+        childList: true,
+        subtree: true,
+      });
+    }
+
+    return () => {
+      if (appartmentRef.current) {
+        observer.disconnect();
+      }
+    };
+  }, []);
+
   return (
-    <div style={{ zIndex: 999 }} className="d-flex  address-selection">
+    <div className="d-flex  address-selection">
       <Form.Label className=" text-input-label  d-flex" style={{ margin: 0 }}>
         <Text color="primary"> {label}: </Text>{" "}
         <Text className="text-input-required-star" color="danger">
@@ -94,9 +130,9 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
         </Text>
       </Form.Label>
       <div
+        ref={appartmentRef}
         id="InAadressDiv"
         className="inads-input-div inads-input-container"
-        style={{ width: "300px", height: "450px", zIndex: 9999 }}
       />
     </div>
   );

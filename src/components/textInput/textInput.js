@@ -8,33 +8,28 @@ const TextInput = ({
   value,
   placeholder,
   required = true,
-  containerStyle,
   isSelection = false,
   selectionData,
-  inputContainerStyle,
   type,
-  labelStyle,
   fieldName,
   inputProps,
   showFeedback,
   errorMessage,
+  selectionInputClassName,
+  containerClassName,
+  inputSelectionClassName,
+  labelClassName,
 }) => {
-  const inputStyle = {
-    width: 226,
-    height: 40,
-    borderRadius: 4,
-    border: "1px solid #6e7184",
-    gap: 10,
-
-    ...inputContainerStyle,
-  };
   const { t } = useTranslation();
   return (
-    <div className="d-flex input-label-container" style={containerStyle}>
+    <div
+      className={`d-flex input-label-container ${
+        containerClassName ? containerClassName : ""
+      }`}
+    >
       {label && (
         <Form.Label
-          className="text-input-label d-flex align-items-start"
-          style={{ margin: 0, ...labelStyle }}
+          className={`text-input-label d-flex align-items-start ${labelClassName}`}
         >
           <Text color="primary"> {label}: </Text>
           <Text className="text-input-required-star" color="danger">
@@ -43,10 +38,13 @@ const TextInput = ({
         </Form.Label>
       )}
       {isSelection ? (
-        <div style={{ zIndex: 99999 }}>
+        <div className={selectionInputClassName ? selectionInputClassName : ""}>
           <Typeahead
+            className={`text-input-selection-component ${
+              inputSelectionClassName ? inputSelectionClassName : ""
+            }`}
+            selected={value ? [value] : []}
             placeholder={t("select")}
-            style={inputStyle}
             id={"typehead"}
             value={value}
             onChange={(e) => onChange(e[0])}
@@ -63,8 +61,10 @@ const TextInput = ({
             value={value}
             onChange={(e) => onChange(e.target.value)}
             label={label}
-            style={inputStyle}
             placeholder={placeholder}
+            className={`text-input-selection-component ${
+              inputSelectionClassName ? inputSelectionClassName : ""
+            }`}
           />
           {showFeedback && (
             <FormFeedback type="danger">{errorMessage}</FormFeedback>
@@ -76,16 +76,3 @@ const TextInput = ({
 };
 
 export default TextInput;
-
-/* <Input
-          as="select"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          label={label}
-          style={inputStyle}
-          placeholder={placeholder}
-        >
-          {selectionData.map((e) => {
-            return <option key={e.key}>{e[fieldName]}</option>;
-          })}
-        </Input> */

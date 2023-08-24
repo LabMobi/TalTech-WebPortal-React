@@ -1,4 +1,5 @@
 .text-input-label {
+  margin: 0px;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
@@ -11,7 +12,7 @@
   margin-left: 4px !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .input-label-container {
     flex-direction: column;
   }
@@ -20,7 +21,14 @@
   }
 }
 
-.phone-number-container input {
+.text-input-selection-component {
+  width: 226px;
+}
+
+.text-input-selection-component input {
+  gap: 10px;
   height: 38px;
   border-radius: 4px;
+  border: 1px solid #6e7184;
+  height: 40px;
 }

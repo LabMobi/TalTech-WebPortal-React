@@ -5,3 +5,7 @@
   border-bottom: 1px solid #e4067e !important;
   text-decoration: underline;
 }
+
+.email-login-form {
+  margin-top: 16px;
+}

@@ -1,7 +1,8 @@
 .address-selection {
   align-items: center;
+  z-index: 999;
 }
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .address-selection {
     flex-direction: column;
     align-items: unset;
@@ -26,4 +27,21 @@
 }
 .inads-copyright {
   top: 40px;
+}
+
+.inads-input-search {
+  top: 6px !important;
+}
+.inads-input-clear {
+  top: 8px !important;
+}
+
+.inads-input-div {
+  width: 300px;
+  height: 450px;
+  z-index: 9999;
+}
+
+.inads-result.searchonly {
+  z-index: 99999;
 }

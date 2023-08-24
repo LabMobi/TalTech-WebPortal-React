@@ -61,8 +61,14 @@
   "logout": "Logi välja",
   "saveAndLeave": "Salvesta ja lahku",
   "saved": "Salvestatud",
-  "remove": "Eemaldada",
+  "remove": "Eemalda",
   "sendDetails": "Saada andmed",
   "select": "Vali",
-  "wrongEmailFormat": "Vale meilivorming"
+  "wrongEmailFormat": "Vale meilivorming",
+  "maxFileSize": "Max faili suurus",
+  "fileSize": "Faili suurus",
+  "form.page3.dateOfGraduate": "Lõpudokumendi kuupäev",
+  "form.page3.numberOfGraduation": "Lõpudokumendi number",
+  "mobile-file-upload-title": "Lisa manusesse faile",
+  "are-you-sure-remove-this-part": "Kas olete kindel, et soovite selle osa eemaldada?"
 }

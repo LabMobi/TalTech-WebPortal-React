@@ -37,7 +37,7 @@ const Page4 = () => {
         {t("form.page4.subtitle")}
       </Text>
       <Form
-        style={{ marginTop: 32 }}
+        className="page-form-container"
         onSubmit={(event) => {
           event.preventDefault();
         }}
@@ -47,12 +47,7 @@ const Page4 = () => {
           onChange={(val) => updateFormFields({ ordIDNumber: val })}
           label={t("form.page4.ORD-IDnumber")}
         />
-        <div
-          className="orc-description-text"
-          style={{
-            marginLeft: 220,
-          }}
-        >
+        <div className="orc-description-text">
           {currentLanguage === "est" ? (
             <Text>
               Kui kood puudub, siis loo see veebilehel{" "}
@@ -81,11 +76,6 @@ const Page4 = () => {
         </div>
         <CustomInput
           className="orc-checkbox"
-          style={{
-            margin: 0,
-            marginLeft: 220,
-            marginBottom: 40,
-          }}
           label={t("form.page4.ORD-required")}
           checked={formFields.orcIdNotNeeded}
           onChange={(e) =>
@@ -99,7 +89,7 @@ const Page4 = () => {
           {t("back")}
         </TTNewButton>
         <TTNewButton
-          style={{ marginLeft: 16 }}
+          className="page4-continue"
           onClick={onContinue}
           disabled={!canContinue}
         >

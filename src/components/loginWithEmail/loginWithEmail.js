@@ -57,11 +57,11 @@ const LoginWithEmail = ({ setIsOTPSent }) => {
         </Text>
       )}
       <Form
+        className="email-login-form"
         onSubmit={(event) => {
           event.preventDefault();
           onSendOTP();
         }}
-        style={{ marginTop: 16 }}
       >
         <Form.Label>{t("enter-your-email")}</Form.Label>
         <Input

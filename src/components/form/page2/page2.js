@@ -17,9 +17,9 @@ const Page2 = () => {
   const dispatch = useDispatch();
   const { formFields, formPage } = useSelector((state) => state.app);
   const updateFormFields = (payload) => {
+    console.log("payload: ", payload);
     dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
   };
-  console.log("formFields: ", formFields);
   const onContinue = () => {
     dispatch(actionCreator(SET_FORM_PAGE, 3));
   };
@@ -50,18 +50,19 @@ const Page2 = () => {
       setShowEmailFormatError(true);
     }
   };
+
   return (
     <div>
       <Text as="h3">{t("form.page2.title")}</Text>
       <Form
-        style={{ marginTop: 32 }}
+        className="page-form-container"
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
         <div className="d-flex phone-number-container">
           <TextInput
-            inputContainerStyle={{ width: 110 }}
+            inputSelectionClassName={"phone-area-input"}
             isSelection
             selectionData={phoneCodes}
             value={formFields.phoneCode}
@@ -70,8 +71,8 @@ const Page2 = () => {
             fieldName={"dial_code"}
           />
           <TextInput
+            inputSelectionClassName={"phone-number-input"}
             type={"number"}
-            inputContainerStyle={{ marginLeft: 6, width: 110 }}
             value={formFields.phoneNumber}
             onChange={(val) => updateFormFields({ phoneNumber: val })}
           />
@@ -83,6 +84,7 @@ const Page2 = () => {
           label={t("email")}
           showFeedback={showEmailFormatError}
           errorMessage={t("wrongEmailFormat")}
+          inputSelectionClassName={"page2-email-input"}
         />
 
         <InAdsWidget
@@ -93,12 +95,12 @@ const Page2 = () => {
             updateFormFields({ residentalAddress: val })
           }
         />
-        <div style={{ marginTop: 40 }}>
+        <div className="page2-bottom-button-container">
           <TTNewButton variant="outline" onClick={onBack}>
             {t("back")}
           </TTNewButton>
           <TTNewButton
-            style={{ marginLeft: 16 }}
+            className="page2-continue-button"
             onClick={onContinue}
             disabled={!canContinue}
           >

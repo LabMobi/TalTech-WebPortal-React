@@ -27,11 +27,11 @@ const OTPLogin = ({ setIsOTPSent }) => {
       </Text>
 
       <Form
+        className="email-login-form"
         onSubmit={(event) => {
           event.preventDefault();
           onContinue();
         }}
-        style={{ marginTop: 16 }}
       >
         <Form.Label>{t("enterOTP")}</Form.Label>
         <Input

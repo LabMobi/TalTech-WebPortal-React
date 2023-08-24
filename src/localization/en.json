@@ -64,5 +64,11 @@
   "sendDetails": "Send details",
   "select": "Select",
   "saved": "Saved",
-  "wrongEmailFormat": "Wrong email format"
+  "wrongEmailFormat": "Wrong email format",
+  "maxFileSize": "Max file size",
+  "fileSize": "File size",
+  "form.page3.dateOfGraduate": "Date of the graduation document",
+  "form.page3.numberOfGraduation": "Number of the graduation document",
+  "mobile-file-upload-title": "Attach files",
+  "are-you-sure-remove-this-part": "Are you sure you want to remove this part?"
 }

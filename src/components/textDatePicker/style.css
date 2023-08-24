@@ -1,10 +1,23 @@
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .text-date-picker-container {
     align-items: flex-end;
   }
-}
-@media (max-width: 860px) {
-  .text-date-picker-container {
-    align-items: end;
+  .text-date-picker-day-container {
+    flex-direction: column;
+    width: 53px;
   }
+}
+
+.text-date-picker-day-input {
+  width: 53px;
+}
+
+.text-date-picker-month-input {
+  width: 65px;
+  margin-left: 6px;
+}
+
+.text-date-picker-year-input {
+  width: 108px;
+  margin-left: 6px;
 }

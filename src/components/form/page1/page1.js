@@ -54,10 +54,10 @@ const Page1 = () => {
   ]);
 
   return (
-    <div className="form-page1-container ">
+    <div className="form-page1-container">
       <Text as="h3">{t("form.page1.title")}</Text>
       <Form
-        style={{ marginTop: 32 }}
+        className="page-form-container"
         onSubmit={(event) => {
           event.preventDefault();
         }}
@@ -93,10 +93,6 @@ const Page1 = () => {
         {formFields.doNotHaveAnIDNumber && (
           <div className="d-flex">
             <CustomInput
-              style={{
-                margin: 0,
-                marginLeft: 220,
-              }}
               label={t("form.page1.woman")}
               checked={formFields.woman}
               onChange={(e) =>
@@ -108,10 +104,7 @@ const Page1 = () => {
               className="page1-gender-checkboxes"
             />
             <CustomInput
-              style={{
-                margin: 0,
-                marginLeft: 16,
-              }}
+              className="gender-man-checkbox"
               label={t("form.page1.man")}
               checked={formFields.man}
               onChange={(e) =>
@@ -125,10 +118,6 @@ const Page1 = () => {
         )}
         <CustomInput
           className="do-not-have-id-checkbox"
-          style={{
-            margin: 0,
-            marginLeft: 220,
-          }}
           label={t("form.page1.doNotOwnEstonianPersonalIdNumber")}
           checked={formFields.doNotHaveAnIDNumber}
           onChange={(e) =>
@@ -139,25 +128,23 @@ const Page1 = () => {
           type="checkbox"
         />
         <TextInput
-          containerStyle={{ marginTop: 16 }}
+          containerClassName={"page1-nationality"}
           value={formFields.nationality}
           onChange={(val) => updateFormFields({ nationality: val })}
           label={t("form.page1.nationality")}
         />
         <TextInput
-          containerStyle={{ marginTop: 16 }}
           value={formFields.countryOfTaxResidence}
           onChange={(val) => updateFormFields({ countryOfTaxResidence: val })}
           label={t("form.page1.Countryoftaxresidence")}
         />
         <TextInput
-          containerStyle={{ marginTop: 16 }}
           value={formFields.iban}
           onChange={(val) => updateFormFields({ iban: val })}
           label={t("form.page1.iban")}
         />
         <TTNewButton
-          style={{ marginTop: 24 }}
+          className="page1-continue"
           onClick={onContinue}
           disabled={!canContinue}
         >

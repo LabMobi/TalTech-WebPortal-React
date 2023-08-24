@@ -20,3 +20,6 @@
   gap: 10px;
   box-sizing: border-box;
 }
+.email-login-form {
+  margin-top: 16px;
+}

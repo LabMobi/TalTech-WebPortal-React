@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
@@ -11,7 +11,8 @@ import {
 import { defaultPage3EducationForm } from "../../../redux/reducers/app.reducer";
 import uuid from "react-uuid";
 import TextDatePicker from "../../textDatePicker/textDatePicker";
-
+import ModalComponent from "../../modal";
+import "./page3.css";
 const Page3 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -25,19 +26,20 @@ const Page3 = () => {
   const onBack = () => {
     dispatch(actionCreator(SET_FORM_PAGE, 2));
   };
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const canContinue = useMemo(() => {
     if (
       formFields.page3EducationForm[0].educationLevel &&
       formFields.page3EducationForm[0].graduatedInstutation &&
       formFields.page3EducationForm[0].graduateDay &&
       formFields.page3EducationForm[0].graduateMonth &&
-      formFields.page3EducationForm[0].graduateYear
+      formFields.page3EducationForm[0].graduateYear &&
+      formFields.page3EducationForm[0].numberOfGraduation
     ) {
       return true;
     }
     return false;
   }, [formFields.page3EducationForm]);
-  console.log("formFields.page3EducationForm: ", formFields.page3EducationForm);
   const educationLevels = [
     {
       name: t("education.Põhiharidus"),
@@ -84,32 +86,40 @@ const Page3 = () => {
     ];
     updateFormFields({ page3EducationForm: updatedEducationForm });
   };
-
+  const [selectedRemoveIndex, setSelectedRemoveIndex] = useState(null);
   const onRemove = (index) => {
+    setSelectedRemoveIndex(index);
+    setIsModalVisible(true);
+  };
+  const onRemoveConfirm = () => {
     const updatedEducationForm = formFields.page3EducationForm.filter(
-      (e, i) => index !== i
+      (e, i) => selectedRemoveIndex !== i
     );
     updateFormFields({ page3EducationForm: updatedEducationForm });
+    setIsModalVisible(false);
+    setSelectedRemoveIndex(null);
   };
-
   return (
     <div>
+      <ModalComponent
+        title={t("are-you-sure-remove-this-part")}
+        isVisible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        onConfirm={onRemoveConfirm}
+      />
       <Text as="h3">{t("form.page3.title")}</Text>
       <Form
-        style={{ marginTop: 32 }}
+        className="page-form-container"
         onSubmit={(event) => {
           event.preventDefault();
         }}
       >
         {formFields.page3EducationForm.map((e, i) => {
           return (
-            <div
-              key={e.id}
-              style={{ borderBottom: "1px solid #DADAE4", paddingBottom: 16 }}
-            >
+            <div className="education-form-card" key={e.id}>
               <TextInput
-                labelStyle={{ marginRight: 32 }}
-                inputContainerStyle={{ height: 44 }}
+                labelClassName={"page3-input-label"}
+                inputSelectionClassName="education-form-input-field"
                 value={formFields.page3EducationForm[i].educationLevel}
                 onChange={(val) =>
                   updateEducationForm("educationLevel", val, i)
@@ -120,23 +130,29 @@ const Page3 = () => {
                 fieldName={"name"}
               />
               <TextInput
-                labelStyle={{
-                  marginRight: 32,
-                }}
-                containerStyle={{
-                  marginTop: 16,
-                  marginBottom: 16,
-                }}
-                inputContainerStyle={{ height: 44 }}
+                inputSelectionClassName="education-form-input-field"
+                labelClassName={"page3-input-label"}
+                containerClassName={"page3-input-container"}
                 value={formFields.page3EducationForm[i].graduatedInstutation}
                 onChange={(val) =>
                   updateEducationForm("graduatedInstutation", val, i)
                 }
                 label={t("form.page3.instutation")}
               />
+              <TextInput
+                type={"number"}
+                labelClassName={"page3-input-label"}
+                containerClassName={"page3-input-container"}
+                inputSelectionClassName="education-form-input-field"
+                value={formFields.page3EducationForm[i].numberOfGraduation}
+                onChange={(val) =>
+                  updateEducationForm("numberOfGraduation", val, i)
+                }
+                label={t("form.page3.numberOfGraduation")}
+              />
               <TextDatePicker
-                labelStyle={{ marginRight: 32 }}
-                label={t("form.page3.graduateDate")}
+                labelClassName={"page3-input-label"}
+                label={t("form.page3.dateOfGraduate")}
                 dayValue={formFields.page3EducationForm[i].graduateDay}
                 monthValue={formFields.page3EducationForm[i].graduateMonth}
                 yearValue={formFields.page3EducationForm[i].graduateYear}
@@ -152,7 +168,7 @@ const Page3 = () => {
               />
               {formFields.page3EducationForm.length > 1 && (
                 <TTNewButton
-                  style={{ textDecoration: "underline", marginTop: 16 }}
+                  className="page3-remove-button"
                   onClick={() => onRemove(i)}
                   variant="link"
                 >
@@ -164,7 +180,7 @@ const Page3 = () => {
         })}
         <div>
           <TTNewButton
-            style={{ textDecoration: "underline", marginBottom: 40 }}
+            className="page3-add-more"
             onClick={addNewEducationForm}
             variant="link"
           >
@@ -175,7 +191,7 @@ const Page3 = () => {
           {t("back")}
         </TTNewButton>
         <TTNewButton
-          style={{ marginLeft: 16 }}
+          className="page3-continue"
           onClick={onContinue}
           disabled={!canContinue}
         >

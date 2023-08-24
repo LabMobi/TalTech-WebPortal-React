@@ -9,7 +9,7 @@ import {
 } from "../../../redux/actions/types";
 import { useDispatch, useSelector } from "react-redux";
 import uuid from "react-uuid";
-
+import "./style.css";
 const Page6 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -99,13 +99,13 @@ const Page6 = () => {
         sublabel={t("form.page6.exceptDocument")}
         onRemove={(data) => onRemove(data, "educationDocument")}
       />
-      <div style={{ marginTop: 32 }}>
+      <div className="page-6-buttons-container">
         <TTNewButton variant="outline" onClick={onBack}>
           {t("back")}
         </TTNewButton>
         <TTNewButton
+          className="page6-continue-button"
           isLoading={isLoading}
-          style={{ marginLeft: 16 }}
           onClick={onContinue}
           disabled={!canContinue}
         >

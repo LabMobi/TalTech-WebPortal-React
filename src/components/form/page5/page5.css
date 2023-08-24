@@ -1,0 +1,31 @@
+.children-form-card {
+  border-bottom: 1px solid #dadae4;
+  padding-bottom: 16px;
+}
+
+.page5-input-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.page5-input-label {
+  margin-right: 32px;
+}
+.children-form-input-field {
+  height: 44px;
+}
+
+.page5-continue {
+  margin-left: 16px;
+}
+.page5-remove {
+  text-decoration: underline;
+  margin-top: 16px;
+}
+
+.page5-addmore {
+  text-decoration: underline;
+}
+.page5-nochildren-checkbox {
+  margin: 0;
+  margin-bottom: 42px !important;
+}

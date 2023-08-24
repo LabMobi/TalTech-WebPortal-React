@@ -6,10 +6,7 @@ import { Form, Text } from "taltech-styleguide";
 const CustomDatePicker = ({ value, onChange, label, labelStyle }) => {
   return (
     <div className="d-flex">
-      <Form.Label
-        className="text-input-label d-flex align-items-center"
-        style={{ margin: 0, ...labelStyle }}
-      >
+      <Form.Label className="text-input-label d-flex align-items-center">
         <Text color="primary"> {label}: </Text>
       </Form.Label>
       <div className="custom-date-picker-container">

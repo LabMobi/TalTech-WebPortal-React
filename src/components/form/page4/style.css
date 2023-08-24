@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .orc-checkbox {
     margin-left: 0 !important;
     margin-bottom: 40px !important;
@@ -6,4 +6,17 @@
   .orc-description-text {
     margin-left: 0 !important;
   }
+}
+.orc-description-text {
+  margin-left: 220px;
+}
+
+.orc-checkbox {
+  margin: 0;
+  margin-left: 220px;
+  margin-bottom: 40px !important;
+}
+
+.page4-continue {
+  margin-left: 16px;
 }

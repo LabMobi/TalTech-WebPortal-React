@@ -2,8 +2,6 @@ import React from "react";
 import TextInput from "../textInput";
 import { setToMinMax } from "../../helpers/helpers";
 import "./style.css";
-import useIsMobile from "../../hooks/useIsMobile";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 const TextDatePicker = ({
   onDayChange,
   onMonthChange,
@@ -12,13 +10,12 @@ const TextDatePicker = ({
   monthValue,
   yearValue,
   label,
-  labelStyle,
+  labelClassName,
 }) => {
   function padSingleDigit(value, min, max) {
     if (value.length === 0) {
       value = "1";
     }
-    debugger;
     if (value.length === 1) {
       value = "0" + value;
       return setToMinMax(value, min, max);
@@ -35,27 +32,18 @@ const TextDatePicker = ({
     func(value);
   };
 
-  const { isMobile } = useIsMobile();
-  const mobileStyle = isMobile ? { containerStyle: { width: 53 } } : {};
-  const { width } = useWindowDimensions();
-  const containerStyle =
-    width < 860
-      ? { flexDirection: "column", width: 52 }
-      : { flexDirection: "row" };
-
   return (
     <div className="text-date-picker-container d-flex ">
       <TextInput
-        containerStyle={containerStyle}
+        containerClassName={"text-date-picker-day-container"}
         value={dayValue}
         type={"number"}
         onChange={(value) =>
           slicer({ value, func: onDayChange, sliceTo: 2, min: 1, max: 31 })
         }
         placeholder={"dd"}
-        {...mobileStyle}
-        inputContainerStyle={{ width: 53 }}
-        labelStyle={{ ...labelStyle }}
+        inputSelectionClassName="text-date-picker-day-input"
+        labelClassName={labelClassName}
         label={label}
         inputProps={{
           onBlur: () => onDayChange(padSingleDigit(dayValue, 1, 31)),
@@ -71,13 +59,7 @@ const TextDatePicker = ({
         type={"number"}
         value={monthValue}
         placeholder={"mm"}
-        inputContainerStyle={{
-          width: 53,
-          marginLeft: 6,
-          paddingLeft: 10,
-          min: 1,
-          max: 12,
-        }}
+        inputSelectionClassName="text-date-picker-month-input"
       />
       <TextInput
         inputProps={{
@@ -95,7 +77,7 @@ const TextDatePicker = ({
         }
         value={yearValue}
         placeholder={"yyyy"}
-        inputContainerStyle={{ width: 108, marginLeft: 6 }}
+        inputSelectionClassName="text-date-picker-year-input"
       />
     </div>
   );

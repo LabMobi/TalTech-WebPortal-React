@@ -1,0 +1,29 @@
+.education-form-card {
+  border-bottom: 1px solid #dadae4;
+  padding-bottom: 16px;
+}
+
+.education-form-input-field {
+  height: 44px;
+}
+.page3-input-container {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+.page3-input-label {
+  margin-right: 32px;
+}
+
+.page3-remove-button {
+  text-decoration: underline !important;
+  margin-top: 16px;
+}
+
+.page3-add-more {
+  margin-bottom: 40px;
+  text-decoration: underline !important;
+}
+
+.page3-continue {
+  margin-left: 16px;
+}

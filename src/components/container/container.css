@@ -28,8 +28,11 @@
   letter-spacing: 0em;
   padding-top: 36px;
 }
+.container-save-button {
+  margin-top: 36px;
+}
 
-@media (max-width: 768px) {
+@media (max-width: 935px) {
   .container-content {
     width: 90vw;
   }
@@ -57,7 +60,7 @@
   }
 }
 
-@media (max-width: 905px) {
+@media (max-width: 979px) {
   .container-save-button {
     width: 170px;
     height: 40px;

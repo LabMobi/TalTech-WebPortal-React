@@ -1,4 +1,17 @@
-@media (max-width: 860px) {
+.page1-gender-checkboxes {
+  margin: 0;
+  margin-left: 220px;
+}
+
+.gender-man-checkbox {
+  margin: 0;
+  margin-left: 16px;
+}
+.do-not-have-id-checkbox {
+  margin-left: 220px;
+}
+
+@media (max-width: 935px) {
   .do-not-have-id-checkbox {
     margin-left: 0 !important;
   }
@@ -6,4 +19,11 @@
   .page1-gender-checkboxes {
     margin-left: 0 !important;
   }
+}
+
+.page1-nationality {
+  margin-top: 16px;
+}
+.page1-continue {
+  margin-top: 24px;
 }

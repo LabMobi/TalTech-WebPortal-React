@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/TalTech-WebPortal-React/static/css/main.db6e6e20.css",
-    "main.js": "/TalTech-WebPortal-React/static/js/main.da463aa2.js",
+    "main.js": "/TalTech-WebPortal-React/static/js/main.a1cd79e2.js",
     "static/js/787.b230d953.chunk.js": "/TalTech-WebPortal-React/static/js/787.b230d953.chunk.js",
     "static/media/Proxima Nova Bold.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Bold.da16c8975f25ca6f2997.otf",
     "static/media/Proxima Nova Black.otf": "/TalTech-WebPortal-React/static/media/Proxima Nova Black.3368220d5963fa57a290.otf",
@@ -23,11 +23,11 @@
     "static/media/TalTechLogo.svg": "/TalTech-WebPortal-React/static/media/TalTechLogo.dadd436066e31884e0d0f349cfbd037c.svg",
     "index.html": "/TalTech-WebPortal-React/index.html",
     "main.db6e6e20.css.map": "/TalTech-WebPortal-React/static/css/main.db6e6e20.css.map",
-    "main.da463aa2.js.map": "/TalTech-WebPortal-React/static/js/main.da463aa2.js.map",
+    "main.a1cd79e2.js.map": "/TalTech-WebPortal-React/static/js/main.a1cd79e2.js.map",
     "787.b230d953.chunk.js.map": "/TalTech-WebPortal-React/static/js/787.b230d953.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.db6e6e20.css",
-    "static/js/main.da463aa2.js"
+    "static/js/main.a1cd79e2.js"
   ]
 }

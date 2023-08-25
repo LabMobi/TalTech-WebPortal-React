@@ -45,3 +45,7 @@
 .inads-result.searchonly {
   z-index: 99999;
 }
+
+.in-ads-form-label {
+  margin: 0;
+}

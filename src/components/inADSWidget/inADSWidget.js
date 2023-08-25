@@ -9,12 +9,15 @@ import { useTranslation } from "react-i18next";
 const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
   const { t } = useTranslation();
   var inAadress;
-
-  useEffect(() => {
-    if (selectedAddress && inAadress && inAadress.setAddress) {
-      inAadress.setAddress(selectedAddress, false);
-    }
-  }, [inAadress, selectedAddress]);
+  const setSelectedAddres = () => {
+    inAadress.setAddress(selectedAddress, false);
+  };
+  // useEffect(() => {
+  //   debugger;
+  //   if (selectedAddress && inAadress && inAadress.setAddress) {
+  //     inAadress.setAddress(selectedAddress, false);
+  //   }
+  // }, [inAadress, selectedAddress]);
   const currentLanguage = getCurrentLanguage();
   useEffect(() => {
     if (window.InAadress) {
@@ -28,7 +31,9 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
           lang: currentLanguage === "est" ? "et" : "en",
         });
       }
-
+      if (selectedAddress) {
+        setSelectedAddres();
+      }
       document.addEventListener("addressSelected", function (e) {
         var info = e.detail;
         const address = info.find((e) => {
@@ -123,7 +128,7 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
 
   return (
     <div className="d-flex  address-selection">
-      <Form.Label className=" text-input-label  d-flex" style={{ margin: 0 }}>
+      <Form.Label className="in-ads-form-label text-input-label  d-flex">
         <Text color="primary"> {label}: </Text>{" "}
         <Text className="text-input-required-star" color="danger">
           {"*"}

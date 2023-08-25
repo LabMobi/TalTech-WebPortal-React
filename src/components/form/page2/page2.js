@@ -17,7 +17,6 @@ const Page2 = () => {
   const dispatch = useDispatch();
   const { formFields, formPage } = useSelector((state) => state.app);
   const updateFormFields = (payload) => {
-    console.log("payload: ", payload);
     dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
   };
   const onContinue = () => {

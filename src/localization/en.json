@@ -58,7 +58,7 @@
   "form.page6.exceptDocument": "except a document of the level of primary and secondary education.",
   "result.formSent": "The form has been sent successfully",
   "result.safelyLogout": "You can safely log out of the environment.",
-  "logout": "Logout",
+  "logout": "Log out",
   "saveAndLeave": "Save and log out",
   "remove": "Remove",
   "sendDetails": "Send details",
@@ -70,5 +70,6 @@
   "form.page3.dateOfGraduate": "Date of the graduation document",
   "form.page3.numberOfGraduation": "Number of the graduation document",
   "mobile-file-upload-title": "Attach files",
-  "are-you-sure-remove-this-part": "Are you sure you want to remove this part?"
+  "are-you-sure-remove-this-part": "Are you sure you want to remove this part?",
+  "page6.submit.modal-text": "Make sure all fields are filled correctly before sending the form"
 }

@@ -12,10 +12,14 @@ import { phoneCodes } from "../../../constants/phoneCodes";
 import InAdsWidget from "../../inADSWidget/inADSWidget";
 import "./style.css";
 import { checkEmailFormat } from "../../../helpers/helpers";
+
 const Page2 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields, formPage } = useSelector((state) => state.app);
+  const [isApartmentSelectionDone, setIsApartmentSelectionDone] =
+    useState(true);
+
   const updateFormFields = (payload) => {
     dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
   };
@@ -27,6 +31,7 @@ const Page2 = () => {
   };
   const canContinue = useMemo(() => {
     if (
+      isApartmentSelectionDone &&
       formFields.phoneCode &&
       formFields.phoneNumber &&
       checkEmailFormat(formFields.email) &&
@@ -40,6 +45,7 @@ const Page2 = () => {
     formFields.phoneCode,
     formFields.phoneNumber,
     formFields.residentalAddress,
+    isApartmentSelectionDone,
   ]);
   const [showEmailFormatError, setShowEmailFormatError] = useState(false);
   const onBlurEmail = () => {
@@ -87,6 +93,7 @@ const Page2 = () => {
         />
 
         <InAdsWidget
+          setIsApartmentSelectionDone={setIsApartmentSelectionDone}
           selectedAddress={formFields.residentalAddress}
           formPage={formPage}
           label={t("form.page2.residentalAddress")}

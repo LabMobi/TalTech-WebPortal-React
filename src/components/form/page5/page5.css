@@ -9,6 +9,7 @@
 }
 .page5-input-label {
   margin-right: 32px;
+  width: 115px !important;
 }
 .children-form-input-field {
   height: 44px;
@@ -28,4 +29,10 @@
 .page5-nochildren-checkbox {
   margin: 0;
   margin-bottom: 42px !important;
+}
+
+@media (max-width: 935px) {
+  .page5-day-field {
+    width: 220px !important;
+  }
 }

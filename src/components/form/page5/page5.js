@@ -79,6 +79,7 @@ const Page5 = () => {
         isVisible={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         onConfirm={onRemoveConfirm}
+        confirmText={t("remove")}
       />
       <Text as="h3">{t("form.page5.title")}</Text>
       <Text color="primary" as="p">
@@ -110,7 +111,7 @@ const Page5 = () => {
                 label={t("form.page5.Perenimi")}
               />
               <TextDatePicker
-                labelClassName={"page5-input-label"}
+                labelClassName={"page5-input-label page5-day-field"}
                 label={t("form.page5.Sünnikuupäev")}
                 dayValue={formFields.page5ChildrenForm[i].dayOfbirthday}
                 monthValue={formFields.page5ChildrenForm[i].monthOfbirthday}

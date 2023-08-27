@@ -2,6 +2,14 @@ import React from "react";
 import TextInput from "../textInput";
 import { setToMinMax } from "../../helpers/helpers";
 import "./style.css";
+import {
+  MAX_DAY,
+  MAX_MONTH,
+  MAX_YEAR,
+  MIN_DAY,
+  MIN_MONTH,
+  MIN_YEAR,
+} from "../../constants/constants";
 const TextDatePicker = ({
   onDayChange,
   onMonthChange,
@@ -26,6 +34,7 @@ const TextDatePicker = ({
   const slicer = (payload) => {
     const { func, sliceTo } = payload;
     let { value } = payload;
+    console.log("value: ", value);
     if (value.length > sliceTo) {
       value = value.slice(0, sliceTo);
     }
@@ -39,22 +48,35 @@ const TextDatePicker = ({
         value={dayValue}
         type={"number"}
         onChange={(value) =>
-          slicer({ value, func: onDayChange, sliceTo: 2, min: 1, max: 31 })
+          slicer({
+            value,
+            func: onDayChange,
+            sliceTo: 2,
+            min: MIN_DAY,
+            max: MAX_DAY,
+          })
         }
         placeholder={"dd"}
         inputSelectionClassName="text-date-picker-day-input"
         labelClassName={labelClassName}
         label={label}
         inputProps={{
-          onBlur: () => onDayChange(padSingleDigit(dayValue, 1, 31)),
+          onBlur: () => onDayChange(padSingleDigit(dayValue, MIN_DAY, MAX_DAY)),
         }}
       />
       <TextInput
         inputProps={{
-          onBlur: () => onMonthChange(padSingleDigit(monthValue, 1, 12)),
+          onBlur: () =>
+            onMonthChange(padSingleDigit(monthValue, MIN_MONTH, MAX_MONTH)),
         }}
         onChange={(value) =>
-          slicer({ value, func: onMonthChange, sliceTo: 2, min: 1, max: 12 })
+          slicer({
+            value,
+            func: onMonthChange,
+            sliceTo: 2,
+            min: MIN_MONTH,
+            max: MAX_MONTH,
+          })
         }
         type={"number"}
         value={monthValue}
@@ -63,7 +85,8 @@ const TextDatePicker = ({
       />
       <TextInput
         inputProps={{
-          onBlur: () => onYearChange(setToMinMax(yearValue, 1950, 2020)),
+          onBlur: () =>
+            onYearChange(setToMinMax(yearValue, MIN_YEAR, MAX_YEAR)),
         }}
         type={"number"}
         onChange={(value) =>
@@ -71,8 +94,8 @@ const TextDatePicker = ({
             value,
             func: onYearChange,
             sliceTo: 4,
-            min: 1950,
-            max: 2020,
+            min: MIN_YEAR,
+            max: MAX_YEAR,
           })
         }
         value={yearValue}

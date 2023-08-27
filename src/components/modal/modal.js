@@ -10,6 +10,8 @@ const ModalComponent = ({
   onConfirm,
   onCancel,
   bodyText,
+  confirmText,
+  isLoading,
 }) => {
   const { t } = useTranslation();
   return (
@@ -25,7 +27,9 @@ const ModalComponent = ({
       </Modal.Header>
       {bodyText && <Modal.Body>{bodyText}</Modal.Body>}
       <Modal.Footer>
-        <TTNewButton onClick={onConfirm}>{t("remove")}</TTNewButton>
+        <TTNewButton isLoading={isLoading} onClick={onConfirm}>
+          {confirmText}
+        </TTNewButton>
         <TTNewButton onClick={onCancel} variant="link">
           {t("cancel")}
         </TTNewButton>

@@ -70,5 +70,6 @@
   "form.page3.dateOfGraduate": "Lõpudokumendi kuupäev",
   "form.page3.numberOfGraduation": "Lõpudokumendi number",
   "mobile-file-upload-title": "Lisa manusesse faile",
-  "are-you-sure-remove-this-part": "Kas olete kindel, et soovite selle osa eemaldada?"
+  "are-you-sure-remove-this-part": "Kas olete kindel, et soovite selle osa eemaldada?",
+  "page6.submit.modal-text": "Enne vormi saatmist veendu, et kõik väljad on korrektselt täidetud"
 }

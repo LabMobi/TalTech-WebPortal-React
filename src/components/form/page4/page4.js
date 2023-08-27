@@ -1,4 +1,5 @@
-import React, { useMemo } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useMemo } from "react";
 import { CustomInput, Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
@@ -30,6 +31,19 @@ const Page4 = () => {
     return false;
   }, [formFields.orcIdNotNeeded, formFields.ordIDNumber]);
   const currentLanguage = getCurrentLanguage();
+
+  useEffect(() => {
+    if (formFields.orcIdNotNeeded) {
+      updateFormFields({ ordIDNumber: "" });
+    }
+  }, [formFields.orcIdNotNeeded]);
+
+  useEffect(() => {
+    if (formFields.ordIDNumber) {
+      updateFormFields({ orcIdNotNeeded: false });
+    }
+  }, [formFields.ordIDNumber]);
+
   return (
     <div>
       <Text as="h3">{t("form.page4.title")}</Text>

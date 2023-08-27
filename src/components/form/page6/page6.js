@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import uuid from "react-uuid";
 import "./style.css";
+import ModalComponent from "../../modal";
 const Page6 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -63,9 +64,18 @@ const Page6 = () => {
     formFields.educationDocument.length,
     formFields.photo.length,
   ]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   return (
     <div>
+      <ModalComponent
+        title={t("page6.submit.modal-text")}
+        isVisible={isModalVisible}
+        onCancel={() => setIsModalVisible(false)}
+        onConfirm={onContinue}
+        confirmText={t("saada")}
+        isLoading={isLoading}
+      />
       <Text as="h3">{t("form.page6.title")}</Text>
       <Text color="primary" as="p">
         {t("form.page6.subtitle")}
@@ -106,7 +116,7 @@ const Page6 = () => {
         <TTNewButton
           className="page6-continue-button"
           isLoading={isLoading}
-          onClick={onContinue}
+          onClick={() => setIsModalVisible(true)}
           disabled={!canContinue}
         >
           {t("sendDetails")}

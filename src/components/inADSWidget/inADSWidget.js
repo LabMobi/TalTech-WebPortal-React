@@ -1,28 +1,43 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-undef */
 import React, { useEffect, useState, useRef } from "react";
 import { Form, Text } from "taltech-styleguide";
 import "./style.css";
 import { getCurrentLanguage } from "../../localization/i18n.config";
 import { useTranslation } from "react-i18next";
-const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
+const InAdsWidget = ({
+  label,
+  onAddressSelect,
+  selectedAddress,
+  setIsApartmentSelectionDone,
+}) => {
   const { t } = useTranslation();
   var inAadress;
   const setSelectedAddres = () => {
     inAadress.setAddress(selectedAddress, false);
   };
-  // useEffect(() => {
-  //   debugger;
-  //   if (selectedAddress && inAadress && inAadress.setAddress) {
-  //     inAadress.setAddress(selectedAddress, false);
-  //   }
-  // }, [inAadress, selectedAddress]);
+  const [isApartmentSelectionVisible, setIsApartmentSelectionVisible] =
+    useState(false);
+  const [selectedApartment, setSelectedApartment] = useState(null);
+
+  useEffect(() => {
+    if (!isApartmentSelectionVisible) {
+      setIsApartmentSelectionDone(true);
+    } else if (isApartmentSelectionVisible && selectedApartment) {
+      setIsApartmentSelectionDone(true);
+    } else {
+      setIsApartmentSelectionDone(false);
+    }
+  }, [
+    isApartmentSelectionVisible,
+    selectedApartment,
+    setIsApartmentSelectionDone,
+  ]);
+
   const currentLanguage = getCurrentLanguage();
   useEffect(() => {
     if (window.InAadress) {
       // eslint-disable-next-line no-undef
       if (!inAadress) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
         inAadress = new InAadress({
           container: "InAadressDiv",
           mode: 3,
@@ -34,7 +49,9 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
       if (selectedAddress) {
         setSelectedAddres();
       }
+
       document.addEventListener("addressSelected", function (e) {
+        console.log("EEEE: ", e);
         var info = e.detail;
         const address = info.find((e) => {
           if (e.aadress) {
@@ -44,6 +61,7 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
         });
         if (address) {
           onAddressSelect(address.aadress);
+          setSelectedApartment(address.kort_nr);
         }
       });
     }
@@ -57,6 +75,7 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
     if (inputElement) {
       inputElement.placeholder = t("form.page2.searchForAnAddress");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleInputClear = () => {
@@ -84,6 +103,7 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
         });
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const appartmentRef = useRef(null);
@@ -92,19 +112,28 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
     const observerCallback = (mutationsList) => {
       for (const mutation of mutationsList) {
         if (
-          mutation.type === "childList" &&
+          (mutation.type === "childList" || mutation.type === "attributes") &&
           mutation.target.classList.contains("inads-appartment")
         ) {
           const target = mutation.target;
 
-          const optionText =
-            target.querySelector("option[selected]").textContent;
+          if (mutation.type === "childList") {
+            const optionText =
+              target.querySelector("option[selected]").textContent;
 
-          if (optionText === "vali korter") {
-            target.querySelector("option[selected]").textContent = "krt";
-          }
-          if (optionText === "choose appartment") {
-            target.querySelector("option[selected]").textContent = "apt.";
+            if (optionText === "vali korter") {
+              target.querySelector("option[selected]").textContent = "krt";
+            }
+            if (optionText === "choose appartment") {
+              target.querySelector("option[selected]").textContent = "apt.";
+            }
+          } else {
+            const hasHiddenClass = target.classList.contains("hidden");
+            if (hasHiddenClass) {
+              setIsApartmentSelectionVisible(false);
+            } else {
+              setIsApartmentSelectionVisible(true);
+            }
           }
         }
       }
@@ -114,12 +143,14 @@ const InAdsWidget = ({ label, onAddressSelect, selectedAddress }) => {
 
     if (appartmentRef.current) {
       observer.observe(appartmentRef.current, {
+        attributes: true,
         childList: true,
         subtree: true,
       });
     }
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (appartmentRef.current) {
         observer.disconnect();
       }

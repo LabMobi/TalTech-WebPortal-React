@@ -27,3 +27,9 @@
 .page3-continue {
   margin-left: 16px;
 }
+
+@media (max-width: 935px) {
+  .page3-day-field {
+    width: 220px !important;
+  }
+}

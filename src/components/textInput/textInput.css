@@ -9,12 +9,15 @@
 }
 
 .text-input-required-star {
-  margin-left: 4px !important;
+  font-size: 15px;
 }
-
+.input-label-container {
+  align-items: center;
+}
 @media (max-width: 935px) {
   .input-label-container {
     flex-direction: column;
+    align-items: unset;
   }
   .text-input-label {
     width: unset;

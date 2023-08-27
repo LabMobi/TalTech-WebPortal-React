@@ -106,6 +106,7 @@ const Page3 = () => {
         isVisible={isModalVisible}
         onCancel={() => setIsModalVisible(false)}
         onConfirm={onRemoveConfirm}
+        confirmText={t("remove")}
       />
       <Text as="h3">{t("form.page3.title")}</Text>
       <Form
@@ -140,7 +141,6 @@ const Page3 = () => {
                 label={t("form.page3.instutation")}
               />
               <TextInput
-                type={"number"}
                 labelClassName={"page3-input-label"}
                 containerClassName={"page3-input-container"}
                 inputSelectionClassName="education-form-input-field"
@@ -151,7 +151,7 @@ const Page3 = () => {
                 label={t("form.page3.numberOfGraduation")}
               />
               <TextDatePicker
-                labelClassName={"page3-input-label"}
+                labelClassName={"page3-input-label page3-day-field"}
                 label={t("form.page3.dateOfGraduate")}
                 dayValue={formFields.page3EducationForm[i].graduateDay}
                 monthValue={formFields.page3EducationForm[i].graduateMonth}

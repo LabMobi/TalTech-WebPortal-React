@@ -8,6 +8,7 @@ import { store } from "./redux/store/store";
 import ConfigProviderWrapper from "./components/configProvider/configProvider";
 import Navigation from "./navigation";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-phone-input-2/lib/style.css";
 
 function App() {
   return (

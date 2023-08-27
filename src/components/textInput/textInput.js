@@ -31,9 +31,11 @@ const TextInput = ({
         <Form.Label
           className={`text-input-label d-flex align-items-start ${labelClassName}`}
         >
-          <Text color="primary"> {label}: </Text>
-          <Text className="text-input-required-star" color="danger">
-            {required ? "*" : ""}
+          <Text color="primary">
+            {label}:{" "}
+            <Text as="span" className="text-input-required-star" color="danger">
+              {required ? "*" : ""}
+            </Text>
           </Text>
         </Form.Label>
       )}

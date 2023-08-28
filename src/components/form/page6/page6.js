@@ -77,9 +77,6 @@ const Page6 = () => {
         isLoading={isLoading}
       />
       <Text as="h3">{t("form.page6.title")}</Text>
-      <Text color="primary" as="p">
-        {t("form.page6.subtitle")}
-      </Text>
       <CustomFileUploader
         type="idCard"
         files={formFields.copyOfIdentity.map((e) => {

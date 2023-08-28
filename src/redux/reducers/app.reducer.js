@@ -43,7 +43,7 @@ const defaultFormFields = {
   nationality: "",
   countryOfTaxResidence: "",
   iban: "",
-  phoneCode: "",
+  phoneCode: "+372",
   phoneNumber: "",
   email: "",
   residentalAddress: "",

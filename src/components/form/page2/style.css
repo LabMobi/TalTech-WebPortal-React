@@ -5,13 +5,23 @@
 }
 
 .phone-area-input {
-  width: 110px;
+  width: 65px;
   z-index: 99999;
 }
 
+.phone-area-input input {
+  padding-right: 5px !important;
+}
+.phone-area-input input {
+  padding-left: 5px;
+  width: 60px;
+}
+.phone-area-input span {
+  right: 6px !important;
+}
+
 .phone-number-input {
-  width: 110px;
-  margin-left: 6px;
+  width: 160px;
 }
 
 .page2-bottom-button-container {

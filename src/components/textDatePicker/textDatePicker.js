@@ -10,6 +10,7 @@ import {
   MIN_MONTH,
   MIN_YEAR,
 } from "../../constants/constants";
+
 const TextDatePicker = ({
   onDayChange,
   onMonthChange,
@@ -21,20 +22,25 @@ const TextDatePicker = ({
   labelClassName,
 }) => {
   function padSingleDigit(value, min, max) {
+    // If the value is empty, set it to "1"
     if (value.length === 0) {
       value = "1";
     }
+    // If the value has only one digit, add a leading "0"
     if (value.length === 1) {
       value = "0" + value;
-      return setToMinMax(value, min, max);
+      // Ensure the value is within the specified min-max range using the setToMinMax function
+      return setToMinMax(value, min, max); // Using the setToMinMax function to ensure value is within min-max range
     } else {
+      // Ensure the value is within the specified min-max range using the setToMinMax function
       return setToMinMax(value, min, max);
     }
   }
+
+  // Function to slice value and call respective change function
   const slicer = (payload) => {
     const { func, sliceTo } = payload;
     let { value } = payload;
-    console.log("value: ", value);
     if (value.length > sliceTo) {
       value = value.slice(0, sliceTo);
     }

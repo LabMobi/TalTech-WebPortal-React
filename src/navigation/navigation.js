@@ -15,6 +15,7 @@ const Navigation = () => {
   const { isLoggedIn, formPage } = useSelector((state) => state.app);
   const dispatch = useDispatch();
 
+  // Interactive effect that runs when logged in
   useEffect(() => {
     if (isLoggedIn) {
       const storedData = localStorage.getItem("appState");
@@ -26,6 +27,7 @@ const Navigation = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn]);
 
+  // Function for dynamically rendering the form page
   const renderForm = useCallback(() => {
     switch (formPage) {
       case 1:
@@ -48,6 +50,7 @@ const Navigation = () => {
     }
   }, [formPage]);
 
+  // Render the form if logged in, otherwise render the onboarding screen
   return isLoggedIn ? renderForm() : <Onboarding />;
 };
 

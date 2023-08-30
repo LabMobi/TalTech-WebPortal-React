@@ -9,6 +9,7 @@ import {
 import { SET_LOGIN } from "../actions/types";
 import uuid from "react-uuid";
 
+// Default data for page 3 education form
 export const defaultPage3EducationForm = [
   {
     educationLevel: "",
@@ -17,9 +18,11 @@ export const defaultPage3EducationForm = [
     graduateDay: "",
     graduateMonth: "",
     graduateYear: "",
-    id: uuid(),
+    id: uuid(), // Generating a unique ID for each form entry
   },
 ];
+
+// Default data for page 5 children form
 export const defaultPage5ChildrenForm = [
   {
     firstName: "",
@@ -27,9 +30,11 @@ export const defaultPage5ChildrenForm = [
     dayOfbirthday: "",
     monthOfbirthday: "",
     yearOfBirthday: "",
-    id: uuid(),
+    id: uuid(), // Generating a unique ID for each form entry
   },
 ];
+
+// Default form fields
 const defaultFormFields = {
   name: "",
   surname: "",
@@ -57,6 +62,7 @@ const defaultFormFields = {
   educationDocument: [],
 };
 
+// Initial state for the reducer
 const initialState = {
   loading: false,
   error: {},
@@ -67,6 +73,7 @@ const initialState = {
   formPage: 1,
 };
 
+// Reducer function
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case SET_LOGIN:

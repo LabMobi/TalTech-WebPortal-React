@@ -1,3 +1,33 @@
+# TalWebPortal: TalTech Employee Data Management Portal
+
+### Project info
+
+This project is aimed at developing digital services for Tallinn University of Technology (TalTech) staff and students. The primary objectives of the project include:
+
+- Creating a secure web form to collect personal data from new university staff members, thereby eliminating the need for data rewriting.
+- Integrating the collected data into the university's human resources software NAV.
+- Providing an intuitive user interface through a Single Page Application (SPA) developed using ReactJS and the TalTech component library.
+- Implementing a backend using PHP (Laravel) and exposing a REST API.
+- Simulating databases for the sample solution using MariaDB.
+
+## Installation and Usage
+
+1. Clone the project repository to your local machine.
+2. Navigate to the root directory in your terminal and run `npm install` to install the required dependencies.
+3. Launch the project by using the command `npm start`. This will automatically open your default browser and display the project preview.
+
+#### Project Structure
+
+- ## `src`: This folder is the main container of all the code.
+  - `api`: This folder contains all services and base request function.
+  - `redux`: This folder contains all actions, reducers, thunks and store which is provided by redux.
+  - `assets`: Asset folder to store all images and icons.
+  - `components`: Folder to store any component that use through app
+  - `localization`: Folder to store the languages files.
+  - `navigation`: This module handles the navigation logic within the application.
+  - `helpers`: This folder contains utility functions and helper modules that are used across the application..
+  - `constants`: Folder to store any kind of constants and enums.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -13,11 +43,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 

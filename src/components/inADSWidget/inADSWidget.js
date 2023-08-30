@@ -17,13 +17,22 @@ const InAdsWidget = ({
   const [isApartmentSelectionVisible, setIsApartmentSelectionVisible] =
     useState(false);
   const [selectedApartment, setSelectedApartment] = useState(null);
+  const currentLanguage = getCurrentLanguage();
+  const appartmentRef = useRef(null);
 
+  /**
+   * Use effect hook that manages the visibility of apartment selection.
+   * Sets the status of apartment selection based on conditions.
+   */
   useEffect(() => {
     if (!isApartmentSelectionVisible) {
+      // If apartment selection is not visible, set it as done.
       setIsApartmentSelectionDone(true);
     } else if (isApartmentSelectionVisible && selectedApartment) {
+      // If apartment selection is visible and an apartment is selected, set it as done.
       setIsApartmentSelectionDone(true);
     } else {
+      // Otherwise, set apartment selection as not done.
       setIsApartmentSelectionDone(false);
     }
   }, [
@@ -32,11 +41,14 @@ const InAdsWidget = ({
     setIsApartmentSelectionDone,
   ]);
 
-  const currentLanguage = getCurrentLanguage();
+  /**
+   * Use effect hook that sets up and configures the InAadress library for address selection.
+   */
   useEffect(() => {
     if (window.InAadress) {
-      // eslint-disable-next-line no-undef
+      // Check if the InAadress library is available.
       if (!inAadress) {
+        // Create an instance of InAadress if it doesn't already exist.
         // eslint-disable-next-line react-hooks/exhaustive-deps, no-undef
         inAadress = new InAadress({
           container: "InAadressDiv",
@@ -46,12 +58,14 @@ const InAdsWidget = ({
           lang: currentLanguage === "est" ? "et" : "en",
         });
       }
+
+      // Set the selected address if available.
       if (selectedAddress) {
         setSelectedAddres();
       }
 
+      // Add an event listener for when an address is selected.
       document.addEventListener("addressSelected", function (e) {
-        console.log("EEEE: ", e);
         var info = e.detail;
         const address = info.find((e) => {
           if (e.aadress) {
@@ -60,6 +74,7 @@ const InAdsWidget = ({
           return "";
         });
         if (address) {
+          // Call the onAddressSelect function with the selected address
           onAddressSelect(address.aadress);
           setSelectedApartment(address.kort_nr);
         }
@@ -68,10 +83,15 @@ const InAdsWidget = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /**
+   * Use effect hook that sets up a placeholder for an input element.
+   */
   useEffect(() => {
     const inputElement = document.querySelector(
       "#InAadressDiv > div.inads-input-div > input"
     );
+
+    // Set the placeholder for the input element if it exists.
     if (inputElement) {
       inputElement.placeholder = t("form.page2.searchForAnAddress");
     }
@@ -82,19 +102,29 @@ const InAdsWidget = ({
     onAddressSelect("");
   };
 
+  /**
+   * Use effect hook that sets up event listeners for an input element and a clear button.
+   * The event listeners handle input changes and clearing the input field.
+   */
   useEffect(() => {
     const inputElement = document.querySelector(".inads-input");
     const clearButton = document.querySelector(".inads-input-clear");
+
+    // Add an event listener to the clear button to handle input clearing.
     if (clearButton) {
       clearButton.addEventListener("click", handleInputClear);
     }
+
+    // Add an event listener to the input element to handle input changes.
     if (inputElement) {
       inputElement.addEventListener("input", () => {
+        // If the input becomes empty, clear its value.
         if (inputElement.value === "") {
           handleInputClear();
         }
       });
 
+      // Remove the input element's event listener when the component unmounts.
       return () => {
         inputElement.removeEventListener("input", () => {
           if (inputElement.value === "") {
@@ -106,8 +136,9 @@ const InAdsWidget = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const appartmentRef = useRef(null);
-
+  /**
+   * Use effect hook that sets up a MutationObserver to watch for changes in a apartment element.
+   */
   useEffect(() => {
     const observerCallback = (mutationsList) => {
       for (const mutation of mutationsList) {
@@ -150,6 +181,7 @@ const InAdsWidget = ({
     }
 
     return () => {
+      // Clean up the observer when the component unmounts.
       // eslint-disable-next-line react-hooks/exhaustive-deps
       if (appartmentRef.current) {
         observer.disconnect();

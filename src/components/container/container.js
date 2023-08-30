@@ -14,6 +14,7 @@ const Container = ({ children }) => {
   const [isSaved, setIsSaved] = useState(false);
   const dispatch = useDispatch();
 
+  // Function to handle save action
   const onSave = () => {
     setIsSavingLoading(true);
     const objectString = JSON.stringify(appState);

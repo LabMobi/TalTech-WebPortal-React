@@ -1,3 +1,4 @@
+// Array of phone codes for different countries
 export const phoneCodes = [
   {
     name: "United States",

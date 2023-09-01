@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
@@ -10,15 +11,33 @@ import {
 import "./loginWithEmail.css";
 import { getCurrentLanguage } from "../../localization/i18n.config";
 import { checkEmailFormat } from "../../helpers/helpers";
+import HttpClient from "../../api/httpclient";
+import { setLoading } from "../../redux/actions/app.actions";
+import { useDispatch, useSelector } from "react-redux";
 
-const LoginWithEmail = ({ setIsOTPSent }) => {
+const LoginWithEmail = ({ setIsOTPSent, email, setEmail }) => {
   const { t } = useTranslation();
   const currentLanguage = getCurrentLanguage();
-  const onSendOTP = () => {
-    setIsOTPSent(true);
-  };
-  const [email, setEmail] = useState("");
   const [showEmailFormatError, setShowEmailFormatError] = useState(false);
+  const { loading } = useSelector((state) => state.app);
+  const dispatch = useDispatch();
+
+  const onSendOTP = async () => {
+    try {
+      dispatch(setLoading(true));
+
+      const response = await HttpClient.Post("/login-otp", {
+        email,
+      });
+
+      setIsOTPSent(true);
+    } catch (error) {
+      console.error("An error occurred while loginOTP:", error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+  };
+
   const onBlurEmail = () => {
     if (checkEmailFormat(email)) {
       setShowEmailFormatError(false);
@@ -67,6 +86,7 @@ const LoginWithEmail = ({ setIsOTPSent }) => {
         <Input
           onBlur={onBlurEmail}
           onChange={(e) => setEmail(e.target.value)}
+          value={email}
           className="login-email-input"
           size="sm"
           label={t("enter-your-email")}
@@ -79,6 +99,7 @@ const LoginWithEmail = ({ setIsOTPSent }) => {
       </Form>
 
       <TTNewButton
+        isLoading={loading}
         value={email}
         disabled={!checkEmailFormat(email)}
         onClick={onSendOTP}

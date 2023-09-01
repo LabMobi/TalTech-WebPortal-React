@@ -1,36 +1,28 @@
-import React, { useState } from "react";
+import React from "react";
 import "./container.css";
 import { useTranslation } from "react-i18next";
-import { TTNewButton, Text } from "taltech-styleguide";
-import { useDispatch, useSelector } from "react-redux";
-import { actionCreator } from "../../redux/actions/common.actions";
-import { LOGOUT } from "../../redux/actions/types";
+import { Loader, TTNewButton, Text } from "taltech-styleguide";
+import { useSelector } from "react-redux";
+import useSaveUser from "../../hooks/useSaveUser";
 const Container = ({ children }) => {
   const { t } = useTranslation();
-  const { isLoggedIn, formPage } = useSelector((state) => state.app);
+  const { isLoggedIn, formPage, userInfoLoading, userFilesLoading } =
+    useSelector((state) => state.app);
   const appState = useSelector((state) => state.app);
   const isSaveButtonVisible = isLoggedIn && formPage !== "result";
-  const [isSavingLoading, setIsSavingLoading] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
-  const dispatch = useDispatch();
+  const { saveUser, isSavingLoading, isSaved } = useSaveUser();
 
   // Function to handle save action
-  const onSave = () => {
-    setIsSavingLoading(true);
-    const objectString = JSON.stringify(appState);
-    localStorage.setItem("appState", objectString);
-    setTimeout(() => {
-      setIsSavingLoading(false);
-      setIsSaved(true);
-      setTimeout(() => {
-        setIsSaved(false);
-        dispatch(actionCreator(LOGOUT));
-      }, 2000);
-    }, 2500);
+  const onSave = async () => {
+    await saveUser(appState, "save");
   };
 
   return (
     <div className="container">
+      {(userInfoLoading || userFilesLoading) && (
+        <Loader className="taltech-loader" />
+      )}
+
       <div className="container-title-text d-flex  justify-content-between">
         <Text as="h1" className="app-form-title-text">
           {t("app.form.title")}

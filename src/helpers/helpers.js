@@ -26,4 +26,20 @@ function checkEmailFormat(emailInput) {
   return emailRegex.test(emailInput);
 }
 
-export { setToMinMax, checkEmailFormat };
+/**
+ * Checks if a specific field is filled for every element in the array.
+ * @param {Array} array - The array of objects to be checked.
+ * @param {string} field - The field name to be checked in each object.
+ * @returns {boolean} - True if the specified field is filled for all elements, otherwise false.
+ */
+const checkEveryFieldFilled = (array, field) => {
+  return array.every((e) => {
+    if (e[field]) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+};
+
+export { setToMinMax, checkEmailFormat, checkEveryFieldFilled };

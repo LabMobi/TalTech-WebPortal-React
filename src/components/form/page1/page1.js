@@ -3,23 +3,19 @@ import { CustomInput, Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator } from "../../../redux/actions/common.actions";
-import {
-  SET_FORM_PAGE,
-  UPDATE_FORM_FIELDS,
-} from "../../../redux/actions/types";
 import "./page1.css";
 import TextDatePicker from "../../textDatePicker/textDatePicker";
+import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
 const Page1 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields } = useSelector((state) => state.app);
   const updateFormFields = (payload) => {
-    dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
+    dispatch(updateForm(payload));
   };
 
   const onContinue = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 2));
+    dispatch(setFormPage(2));
   };
 
   const canContinue = useMemo(() => {
@@ -98,6 +94,7 @@ const Page1 = () => {
               onChange={(e) =>
                 updateFormFields({
                   woman: !formFields.woman,
+                  man: false,
                 })
               }
               type="checkbox"
@@ -110,6 +107,7 @@ const Page1 = () => {
               onChange={(e) =>
                 updateFormFields({
                   man: !formFields.man,
+                  woman: false,
                 })
               }
               type="checkbox"

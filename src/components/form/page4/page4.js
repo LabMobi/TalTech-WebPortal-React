@@ -4,26 +4,25 @@ import { CustomInput, Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator } from "../../../redux/actions/common.actions";
-import {
-  SET_FORM_PAGE,
-  UPDATE_FORM_FIELDS,
-} from "../../../redux/actions/types";
 import { getCurrentLanguage } from "../../../localization/i18n.config";
 import "./style.css";
+import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
 const Page4 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields } = useSelector((state) => state.app);
   const updateFormFields = (payload) => {
-    dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
+    dispatch(updateForm(payload));
   };
+
   const onContinue = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 5));
+    dispatch(setFormPage(5));
   };
+
   const onBack = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 3));
+    dispatch(setFormPage(3));
   };
+
   const canContinue = useMemo(() => {
     if (formFields.orcIdNotNeeded || formFields.ordIDNumber) {
       return true;

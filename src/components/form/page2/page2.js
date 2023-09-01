@@ -3,15 +3,11 @@ import { Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator } from "../../../redux/actions/common.actions";
-import {
-  SET_FORM_PAGE,
-  UPDATE_FORM_FIELDS,
-} from "../../../redux/actions/types";
 import { phoneCodes } from "../../../constants/phoneCodes";
 import InAdsWidget from "../../inADSWidget/inADSWidget";
 import "./style.css";
 import { checkEmailFormat } from "../../../helpers/helpers";
+import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
 
 const Page2 = () => {
   const { t } = useTranslation();
@@ -21,13 +17,13 @@ const Page2 = () => {
     useState(true);
 
   const updateFormFields = (payload) => {
-    dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
+    dispatch(updateForm(payload));
   };
   const onContinue = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 3));
+    dispatch(setFormPage(3));
   };
   const onBack = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 1));
+    dispatch(setFormPage(1));
   };
   const canContinue = useMemo(() => {
     if (

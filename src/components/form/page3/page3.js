@@ -3,38 +3,39 @@ import { Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator } from "../../../redux/actions/common.actions";
-import {
-  SET_FORM_PAGE,
-  UPDATE_FORM_FIELDS,
-} from "../../../redux/actions/types";
 import { defaultPage3EducationForm } from "../../../redux/reducers/app.reducer";
 import uuid from "react-uuid";
 import TextDatePicker from "../../textDatePicker/textDatePicker";
 import ModalComponent from "../../modal";
 import "./page3.css";
+import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
+import { checkEveryFieldFilled } from "../../../helpers/helpers";
+import { EDUCATION_LEVELS } from "../../../constants/enums";
 const Page3 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields } = useSelector((state) => state.app);
   const updateFormFields = (payload) => {
-    dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
+    dispatch(updateForm(payload));
   };
   const onContinue = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 4));
+    dispatch(setFormPage(4));
   };
   const onBack = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 2));
+    dispatch(setFormPage(2));
   };
   const [isModalVisible, setIsModalVisible] = useState(false);
   const canContinue = useMemo(() => {
     if (
-      formFields.page3EducationForm[0].educationLevel &&
-      formFields.page3EducationForm[0].graduatedInstutation &&
-      formFields.page3EducationForm[0].graduateDay &&
-      formFields.page3EducationForm[0].graduateMonth &&
-      formFields.page3EducationForm[0].graduateYear &&
-      formFields.page3EducationForm[0].numberOfGraduation
+      checkEveryFieldFilled(formFields.page3EducationForm, "educationLevel") &&
+      checkEveryFieldFilled(
+        formFields.page3EducationForm,
+        "graduatedInstutation"
+      ) &&
+      checkEveryFieldFilled(formFields.page3EducationForm, "graduateDay") &&
+      checkEveryFieldFilled(formFields.page3EducationForm, "graduateMonth") &&
+      checkEveryFieldFilled(formFields.page3EducationForm, "graduateYear") &&
+      checkEveryFieldFilled(formFields.page3EducationForm, "numberOfGraduation")
     ) {
       return true;
     }
@@ -43,36 +44,43 @@ const Page3 = () => {
   const educationLevels = [
     {
       name: t("education.Põhiharidus"),
-      key: "Põhiharidus",
+      key: EDUCATION_LEVELS.basic_education,
     },
     {
       name: t("education.gümnaasiumiHaridus"),
-      key: "Kesk- / gümnaasiumi haridus",
+      key: EDUCATION_LEVELS.secondary_education,
     },
     {
       name: t("education.kutseharidus"),
-      key: "Keskeri- / kutseharidus",
+      key: EDUCATION_LEVELS.vocational_education,
     },
     {
       name: t("education.Bakalaureusekraad"),
-      key: "Bakalaureuse kraad",
+      key: EDUCATION_LEVELS.bachelor_degree,
     },
     {
       name: t("education.Magistrikraad"),
-      key: "Magistrikraad",
+      key: EDUCATION_LEVELS.master_degree,
     },
     {
       name: t("education.Doktorikraad"),
-      key: "Doktorikraad",
+      key: EDUCATION_LEVELS.doctorate_degree,
     },
   ];
+
   const updateEducationForm = (field, val, i) => {
     const updatedEducationForm = formFields.page3EducationForm.map(
       (e, index) => {
         if (i !== index) {
           return e;
         } else {
-          return { ...e, [field]: val };
+          return {
+            ...e,
+            [field]:
+              field === "educationLevel"
+                ? educationLevels.find((e) => e.name === val)?.key ?? ""
+                : val,
+          };
         }
       }
     );
@@ -99,6 +107,15 @@ const Page3 = () => {
     setIsModalVisible(false);
     setSelectedRemoveIndex(null);
   };
+
+  const getEducationLevelValue = (i) => {
+    return formFields.page3EducationForm[i].educationLevel
+      ? educationLevels.find(
+          (e) => e.key === formFields.page3EducationForm[i].educationLevel
+        )?.name
+      : "";
+  };
+
   return (
     <div>
       <ModalComponent
@@ -121,7 +138,7 @@ const Page3 = () => {
               <TextInput
                 labelClassName={"page3-input-label"}
                 inputSelectionClassName="education-form-input-field"
-                value={formFields.page3EducationForm[i].educationLevel}
+                value={getEducationLevelValue(i)}
                 onChange={(val) =>
                   updateEducationForm("educationLevel", val, i)
                 }

@@ -4,14 +4,13 @@ import { TTNewButton, Text } from "taltech-styleguide";
 import "./loginWithIDCard.css";
 import { getCurrentLanguage } from "../../localization/i18n.config";
 import { useDispatch } from "react-redux";
-import { actionCreator } from "../../redux/actions/common.actions";
-import { SET_LOGIN } from "../../redux/actions/types";
+import { setLogin } from "../../redux/actions/app.actions";
 const LoginWithIDCard = () => {
   const { t } = useTranslation();
   const currentLanguage = getCurrentLanguage();
   const dispatch = useDispatch();
   const onContinue = () => {
-    dispatch(actionCreator(SET_LOGIN, true));
+    dispatch(setLogin({ isLoggedIn: true }));
   };
   return (
     <div className="login-option-container">

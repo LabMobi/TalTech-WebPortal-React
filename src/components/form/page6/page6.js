@@ -2,52 +2,93 @@ import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TTNewButton, Text } from "taltech-styleguide";
 import CustomFileUploader from "../../customFileUploader/customFileUploader";
-import { actionCreator } from "../../../redux/actions/common.actions";
-import {
-  SET_FORM_PAGE,
-  UPDATE_FORM_FIELDS,
-} from "../../../redux/actions/types";
 import { useDispatch, useSelector } from "react-redux";
-import uuid from "react-uuid";
 import "./style.css";
 import ModalComponent from "../../modal";
+import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
+import HttpClient from "../../../api/httpclient";
+import useSaveUser from "../../../hooks/useSaveUser";
 const Page6 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields } = useSelector((state) => state.app);
-  const [isLoading, setIsLoading] = useState(false);
+  const appState = useSelector((state) => state.app);
+
+  const [loadingStates, setLoadingStates] = useState({
+    photo: false,
+    copyOfIdentity: false,
+    educationDocument: false,
+  });
+  const { saveUser, isSavingLoading } = useSaveUser();
 
   const updateFormFields = (payload) => {
-    dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
+    dispatch(updateForm(payload));
   };
 
-  const onFileUploadChange = (files, field) => {
-    const copyFiles = [...files];
-    // eslint-disable-next-line array-callback-return
-    copyFiles.map((e) => {
-      e.id = uuid();
-    });
-    updateFormFields({
-      [field]: [...formFields[field], ...files],
-      ...copyFiles,
-    });
+  const onFileUploadChange = async (files, field) => {
+    let newFiles = [];
+    setLoadingStates((prevState) => ({
+      ...prevState,
+      [field]: true,
+    }));
+    if (field === "") {
+    }
+    try {
+      if (files.length > 0) {
+        await Promise.all(
+          files.map(async (document) => {
+            let data = new FormData();
+            data.append("file", document);
+            data.append("context", field);
+            const res = await HttpClient.Post("/file", data);
+            newFiles.push({ name: document.name, path: res.path });
+          })
+        );
+      }
+      if (field === "copyOfIdentity" || field === "photo") {
+        //only one item can be selected for identity or photo
+        updateFormFields({
+          [field]: [...newFiles],
+        });
+      } else {
+        updateFormFields({
+          [field]: [...formFields[field], ...newFiles],
+        });
+      }
+    } catch (error) {
+    } finally {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        [field]: false,
+      }));
+    }
   };
 
-  const onRemove = (data, field) => {
-    const copyItems = formFields[field].filter((e) => e.id !== data.id);
-    updateFormFields({
-      [field]: copyItems,
-    });
+  const onRemove = async (data, field) => {
+    try {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        [field]: true,
+      }));
+      const res = await HttpClient.Delete("/file", { path: data.path });
+      const copyItems = formFields[field].filter((e) => e.path !== data.path);
+      updateFormFields({
+        [field]: copyItems,
+      });
+    } catch (error) {
+    } finally {
+      setLoadingStates((prevState) => ({
+        ...prevState,
+        [field]: false,
+      }));
+    }
   };
-  const onContinue = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      dispatch(actionCreator(SET_FORM_PAGE, "result"));
-    }, 3000);
+
+  const onContinue = async () => {
+    await saveUser(appState, "confirm");
   };
   const onBack = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 5));
+    dispatch(setFormPage(5));
   };
 
   const canContinue = useMemo(() => {
@@ -74,10 +115,11 @@ const Page6 = () => {
         onCancel={() => setIsModalVisible(false)}
         onConfirm={onContinue}
         confirmText={t("saada")}
-        isLoading={isLoading}
+        isLoading={isSavingLoading}
       />
       <Text as="h3">{t("form.page6.title")}</Text>
       <CustomFileUploader
+        isLoading={loadingStates.copyOfIdentity}
         type="idCard"
         files={formFields.copyOfIdentity.map((e) => {
           return { fileObject: e };
@@ -88,6 +130,7 @@ const Page6 = () => {
         sublabel={t("form.page6.forPersonalIdentification")}
       />
       <CustomFileUploader
+        isLoading={loadingStates.photo}
         type="photo"
         files={formFields.photo.map((e) => {
           return { fileObject: e };
@@ -98,6 +141,7 @@ const Page6 = () => {
         onRemove={(data) => onRemove(data, "photo")}
       />
       <CustomFileUploader
+        isLoading={loadingStates.educationDocument}
         files={formFields.educationDocument.map((e) => {
           return { fileObject: e };
         })}
@@ -112,7 +156,7 @@ const Page6 = () => {
         </TTNewButton>
         <TTNewButton
           className="page6-continue-button"
-          isLoading={isLoading}
+          isLoading={isSavingLoading}
           onClick={() => setIsModalVisible(true)}
           disabled={!canContinue}
         >

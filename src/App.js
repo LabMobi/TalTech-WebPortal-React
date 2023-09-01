@@ -12,6 +12,7 @@ import "./localization/i18n.config";
 // Import Redux Provider to connect Redux with the React app
 import { Provider } from "react-redux"; //binding redux withreact app
 import { store } from "./redux/store/store";
+import { ToastContainer } from "taltech-styleguide";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
     <Provider store={store}>
       <ConfigProviderWrapper>
         <div>
+          <ToastContainer />
           <Header />
           <Container>
             <Navigation />

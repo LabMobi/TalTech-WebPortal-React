@@ -5,7 +5,13 @@
   align-items: center;
   padding-bottom: 140px;
 }
-
+.taltech-loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+}
 .container-content {
   width: calc(100vw - 40%);
   background-color: white;

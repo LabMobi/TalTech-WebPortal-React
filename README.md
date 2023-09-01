@@ -1,4 +1,4 @@
-# TalWebPortal: TalTech Employee Data Management Portal
+# TalTechWebPortal: TalTech Employee Data Management Portal
 
 ### Project info
 
@@ -27,6 +27,7 @@ This project is aimed at developing digital services for Tallinn University of T
   - `navigation`: This module handles the navigation logic within the application.
   - `helpers`: This folder contains utility functions and helper modules that are used across the application..
   - `constants`: Folder to store any kind of constants and enums.
+  - `hooks`: This folder contains custom React hooks used to enhance component functionality.
 
 # Getting Started with Create React App
 

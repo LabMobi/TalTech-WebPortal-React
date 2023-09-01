@@ -5,16 +5,15 @@ import { TTNewButton, Text } from "taltech-styleguide";
 import { LOGIN_OPTIONS } from "../../constants/enums";
 import LoginWithIDCard from "../loginWithIDCard";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator } from "../../redux/actions/common.actions";
-import { SET_SELECTED_LOGIN_OPTION } from "../../redux/actions/types";
 import LoginWithEmail from "../loginWithEmail";
 import OTPLogin from "../otpLogin/otpLogin";
+import { setSelectedLoginOption } from "../../redux/actions/app.actions";
 const Onboarding = () => {
   const { t } = useTranslation();
-
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
   const onSelectLoginOption = (option) => {
-    dispatch(actionCreator(SET_SELECTED_LOGIN_OPTION, option));
+    dispatch(setSelectedLoginOption(option));
   };
   const { selectedLoginOption } = useSelector((state) => state.app);
   const [isOTPSent, setIsOTPSent] = useState(false);
@@ -42,10 +41,14 @@ const Onboarding = () => {
       )}
       {selectedLoginOption === LOGIN_OPTIONS.IDCARD && <LoginWithIDCard />}
       {selectedLoginOption === LOGIN_OPTIONS.EMAIL && !isOTPSent && (
-        <LoginWithEmail setIsOTPSent={setIsOTPSent} />
+        <LoginWithEmail
+          email={email}
+          setEmail={setEmail}
+          setIsOTPSent={setIsOTPSent}
+        />
       )}
       {selectedLoginOption === LOGIN_OPTIONS.EMAIL && isOTPSent && (
-        <OTPLogin setIsOTPSent={setIsOTPSent} />
+        <OTPLogin email={email} setIsOTPSent={setIsOTPSent} />
       )}
     </div>
   );

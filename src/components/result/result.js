@@ -2,16 +2,15 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
 import { TTNewButton, Text } from "taltech-styleguide";
-import { LOGOUT } from "../../redux/actions/types";
-import { actionCreator } from "../../redux/actions/common.actions";
 import "./style.css";
+import { logout } from "../../redux/actions/app.actions";
 const Result = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
   const onLogout = () => {
     localStorage.removeItem("appState");
-    dispatch(actionCreator(LOGOUT));
+    dispatch(logout());
   };
   return (
     <div>

@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { TTNewButton, Text, Input, Form } from "taltech-styleguide";
 import "./otpLogin.css";
-import { SET_LOGIN } from "../../redux/actions/types";
-import { actionCreator } from "../../redux/actions/common.actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { verifyOTP } from "../../redux/actions/app.actions";
 
-const OTPLogin = ({ setIsOTPSent }) => {
+const OTPLogin = ({ setIsOTPSent, email }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const [otp, setOTP] = useState("");
+  const { loading } = useSelector((state) => state.app);
 
   const onContinue = () => {
-    dispatch(actionCreator(SET_LOGIN, true));
+    dispatch(verifyOTP({ email, otp }));
   };
+
   const onCancelOTP = () => {
     setIsOTPSent(false);
   };
-  const [otp, setOTP] = useState("");
-
   return (
     <div className="login-option-container">
       <Text as="h4">{t("email")}</Text>
@@ -45,6 +45,7 @@ const OTPLogin = ({ setIsOTPSent }) => {
       </Form>
       <div className="d-flex align-items-center">
         <TTNewButton
+          isLoading={loading}
           value={otp}
           disabled={otp.length < 4}
           onClick={onContinue}

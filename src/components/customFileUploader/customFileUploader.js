@@ -12,6 +12,7 @@ const CustomFileUploader = ({
   sublabel,
   files,
   type,
+  isLoading,
 }) => {
   const currentLanguage = getCurrentLanguage();
   const { t } = useTranslation();
@@ -29,6 +30,7 @@ const CustomFileUploader = ({
         {sublabel}
       </Text>
       <TTNewFileUpload
+        isLoading={isLoading}
         dropzoneOptions={
           (type === "idCard" || type === "photo") && {
             maxFiles: 1,

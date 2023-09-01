@@ -8,24 +8,20 @@ import Page4 from "../components/form/page4/page4";
 import Page5 from "../components/form/page5/page5";
 import Page6 from "../components/form/page6/page6";
 import Result from "../components/result/result";
-import { actionCreator } from "../redux/actions/common.actions";
-import { SET_ALL_LOCAL_DATA } from "../redux/actions/types";
+import { getUserFiles, getUserInfo } from "../redux/actions/app.actions";
 
 const Navigation = () => {
-  const { isLoggedIn, formPage } = useSelector((state) => state.app);
+  const { isLoggedIn, formPage, token } = useSelector((state) => state.app);
   const dispatch = useDispatch();
 
   // Interactive effect that runs when logged in
   useEffect(() => {
-    if (isLoggedIn) {
-      const storedData = localStorage.getItem("appState");
-      if (storedData) {
-        const parsedObject = JSON.parse(storedData);
-        dispatch(actionCreator(SET_ALL_LOCAL_DATA, parsedObject));
-      }
+    if (isLoggedIn && token) {
+      dispatch(getUserInfo());
+      dispatch(getUserFiles());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoggedIn]);
+  }, [isLoggedIn, token]);
 
   // Function for dynamically rendering the form page
   const renderForm = useCallback(() => {

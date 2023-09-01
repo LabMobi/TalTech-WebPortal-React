@@ -1,41 +1,46 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { CustomInput, Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
-import { actionCreator } from "../../../redux/actions/common.actions";
-import {
-  SET_FORM_PAGE,
-  UPDATE_FORM_FIELDS,
-} from "../../../redux/actions/types";
 import { defaultPage5ChildrenForm } from "../../../redux/reducers/app.reducer";
 import uuid from "react-uuid";
 import TextDatePicker from "../../textDatePicker/textDatePicker";
 import ModalComponent from "../../modal";
 import "./page5.css";
+import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
+import { checkEveryFieldFilled } from "../../../helpers/helpers";
 const Page5 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields } = useSelector((state) => state.app);
   const updateFormFields = (payload) => {
-    dispatch(actionCreator(UPDATE_FORM_FIELDS, payload));
+    dispatch(updateForm(payload));
   };
   const onContinue = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 6));
+    dispatch(setFormPage(6));
   };
   const onBack = () => {
-    dispatch(actionCreator(SET_FORM_PAGE, 4));
+    dispatch(setFormPage(4));
   };
+
   const canContinue = useMemo(() => {
     if (
       !formFields.noChildren &&
-      (!formFields.page5ChildrenForm[0].firstName ||
-        !formFields.page5ChildrenForm[0].surName)
+      (!checkEveryFieldFilled(formFields.page5ChildrenForm, "firstName") ||
+        !checkEveryFieldFilled(formFields.page5ChildrenForm, "surName") ||
+        !checkEveryFieldFilled(formFields.page5ChildrenForm, "dayOfbirthday") ||
+        !checkEveryFieldFilled(
+          formFields.page5ChildrenForm,
+          "monthOfbirthday"
+        ) ||
+        !checkEveryFieldFilled(formFields.page5ChildrenForm, "yearOfBirthday"))
     ) {
       return false;
     }
     return true;
   }, [formFields.noChildren, formFields.page5ChildrenForm]);
+
   const updateChildrenForm = (field, val, i) => {
     const updatedChildrenForm = formFields.page5ChildrenForm.map((e, index) => {
       if (i !== index) {
@@ -71,6 +76,13 @@ const Page5 = () => {
     setIsModalVisible(false);
     setSelectedRemoveIndex(null);
   };
+
+  useEffect(() => {
+    if (formFields.noChildren) {
+      updateFormFields({ page5ChildrenForm: defaultPage5ChildrenForm });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formFields.noChildren]);
 
   return (
     <div>

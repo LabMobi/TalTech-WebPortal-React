@@ -4,8 +4,7 @@ import { getCurrentLanguage } from "../../localization/i18n.config"; // Importin
 import "./languageSelection.css"; // Importing styles
 import { TTNewButton, Text } from "taltech-styleguide"; // Importing components from "taltech-styleguide"
 import { useDispatch } from "react-redux"; // Importing useDispatch from "react-redux"
-import { actionCreator } from "../../redux/actions/common.actions"; // Importing actionCreator
-import { SET_LANGUAGE } from "../../redux/actions/types"; // Importing action type
+import { setLanguage } from "../../redux/actions/app.actions";
 
 // LanguageSelection component
 const LanguageSelection = () => {
@@ -21,7 +20,7 @@ const LanguageSelection = () => {
       isSelected: getCurrentLanguage() === "est", // Checking if the language is currently selected
       onSelect: () => {
         onChange("est"); // Changing the language to "est"
-        dispatch(actionCreator(SET_LANGUAGE, "est")); // Dispatching an action to set the language in Redux
+        dispatch(setLanguage("est")); // Dispatching an action to set the language in Redux
       },
     },
     {
@@ -30,7 +29,7 @@ const LanguageSelection = () => {
       isSelected: getCurrentLanguage() === "en", // Checking if the language is currently selected
       onSelect: () => {
         onChange("en"); // Changing the language to "en"
-        dispatch(actionCreator(SET_LANGUAGE, "en")); // Dispatching an action to set the language in Redux
+        dispatch(setLanguage("en")); // Dispatching an action to set the language in Redux
       },
     },
   ];

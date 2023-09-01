@@ -46,9 +46,9 @@ AxiosInstance.interceptors.response.use(
   (response) => {
     requestInProgress = false;
 
-    if (process.env.NODE_ENV === "development") {
-      console.log(">>>RESPONSE", { response });
-    }
+    // if (process.env.NODE_ENV === "development") {
+    console.log(">>>RESPONSE", { response });
+    // }
 
     return response.data;
   },

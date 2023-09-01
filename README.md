@@ -60,7 +60,7 @@ In this project, we've implemented a custom navigation system without using a ro
 
 The `Navigation` component is responsible for rendering the appropriate content based on the current state of the application. Here's how it works:
 
-- If the user is logged in (`isLoggedIn` is `true`), the component dynamically renders the relevant section (e.g., Profile, Settings, Dashboard) based on the `activeSection` state.
+- If the user is logged in (`isLoggedIn` is `true`), the component dynamically renders the relevant section (e.g., Page1, Page2, Result) based on the `formPage` state.
 
 - If the user is not logged in, the component renders a welcome screen or login form.
 

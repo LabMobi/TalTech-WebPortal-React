@@ -26,16 +26,17 @@ const Onboarding = () => {
       {!isOTPSent && (
         <>
           <TTNewButton
-            onClick={() => onSelectLoginOption(LOGIN_OPTIONS.IDCARD)}
-          >
-            {t("id-card")}
-          </TTNewButton>
-          <TTNewButton
             onClick={() => onSelectLoginOption(LOGIN_OPTIONS.EMAIL)}
-            className="login-email-button"
             variant="outline"
           >
             {t("email")}
+          </TTNewButton>
+          <TTNewButton
+            disabled
+            className="id-card-button"
+            onClick={() => onSelectLoginOption(LOGIN_OPTIONS.IDCARD)}
+          >
+            {t("id-card")}
           </TTNewButton>
         </>
       )}

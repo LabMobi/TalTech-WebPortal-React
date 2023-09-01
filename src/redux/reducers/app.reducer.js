@@ -1,3 +1,4 @@
+import { LOGIN_OPTIONS } from "../../constants/enums";
 import {
   LOGOUT,
   SET_ALL_LOCAL_DATA,
@@ -70,7 +71,7 @@ const initialState = {
   loading: false,
   error: {},
   isLoggedIn: false,
-  selectedLoginOption: null,
+  selectedLoginOption: LOGIN_OPTIONS.EMAIL,
   formFields: defaultFormFields,
   currentLanguage: "est",
   formPage: 1,

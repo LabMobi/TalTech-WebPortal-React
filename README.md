@@ -41,7 +41,33 @@ This project is aimed at developing digital services for Tallinn University of T
 - Periodic status checks for ongoing requests.
 - Error handling and toast notifications.
 
-  # Redux Documentation
+# Custom Navigation
+
+In this project, we've implemented a custom navigation system without using a routing library like React Router. This custom navigation logic allows us to navigate between different sections of the application based on the current state.
+
+## Navigation Component
+
+The `Navigation` component is responsible for rendering the appropriate content based on the current state of the application. Here's how it works:
+
+- If the user is logged in (`isLoggedIn` is `true`), the component dynamically renders the relevant section (e.g., Profile, Settings, Dashboard) based on the `activeSection` state.
+
+- If the user is not logged in, the component renders a welcome screen or login form.
+
+## useEffect for Data Loading
+
+The `useEffect` hook within the Navigation component is used to load user-specific data when the user is logged in. It listens for changes in the `isLoggedIn` state and triggers data fetching accordingly.
+
+## Dynamic Section Rendering
+
+The `renderForm` function dynamically renders the appropriate section based on the `formPage` value from the Redux store. This approach keeps the code clean and organized, making it easier to manage different sections of the application.
+
+## Conclusion
+
+Although this project doesn't utilize a traditional routing library, the custom navigation logic in the Navigation component provides a flexible way to handle navigation between different sections of the application.
+
+In the future, if it is decided to implement routing, we can seamlessly integrate it with existing components and logic.
+
+# Redux Documentation
 
 ## Introduction
 

@@ -19,6 +19,7 @@ This project is aimed at developing digital services for Tallinn University of T
 #### Project Structure
 
 - ## `src`: This folder is the main container of all the code.
+
   - `api`: This folder contains all services and base request function.
   - `redux`: This folder contains all actions, reducers, thunks and store which is provided by redux.
   - `assets`: Asset folder to store all images and icons.
@@ -28,6 +29,140 @@ This project is aimed at developing digital services for Tallinn University of T
   - `helpers`: This folder contains utility functions and helper modules that are used across the application..
   - `constants`: Folder to store any kind of constants and enums.
   - `hooks`: This folder contains custom React hooks used to enhance component functionality.
+
+  # Redux Documentation
+
+## Introduction
+
+This documentation explains how to manage state using Redux in project. Redux is a JavaScript state management library commonly used with React applications. It centralizes application state, making it easier to manage and separate application logic from the user interface.
+
+## Table of Contents
+
+1. **What is Redux?**
+
+   - Redux Overview
+   - Why Use Redux?
+   - Key Concepts of Redux
+
+2. **Project Redux Structure**
+
+   - Core Components of Redux
+   - Action Types
+   - Actions
+   - Reducers
+   - Redux Store
+   - Connectors
+
+3. **Project Contents**
+
+   - Redux Action Types and Descriptions
+   - Default Form Data
+   - Reducers and Their Core Functions
+   - Initial State of the Reducer
+
+4. **Reducer Functions and Examples**
+   - `SET_LOGIN`
+   - `SET_SELECTED_LOGIN_OPTION`
+   - `SET_LANGUAGE`
+   - `SET_FORM_PAGE`
+   - `UPDATE_FORM_FIELDS`
+   - `LOGOUT`
+   - `SET_ALL_LOCAL_DATA`
+   - `SET_LOADING`
+   - `SET_USER_INFO_LOADING`
+   - `SET_USER_FILES_LOADING`
+
+## What is Redux?
+
+Redux is a JavaScript library used to manage application state in a predictable and centralized manner. It uses actions to update state, with each action having a type and a payload.
+
+## Why Use Redux?
+
+- To manage state more effectively, especially in large and complex applications.
+- To share state across the application when needed.
+- To separate application logic from the user interface.
+
+## Key Concepts of Redux
+
+- **Actions**: Redux uses actions to update application state. Each action has a type and a value.
+
+- **Reducers**: Reducers are functions that modify the current state based on actions. Reducers should be pure functions, meaning they do not modify the current state directly but return a new state.
+
+- **Redux Store**: The Redux Store is a centralized object that holds the entire state of the application. It triggers actions to manage state.
+
+- **Connectors**: Connectors are used to communicate between Redux Store and components. They provide components with specific parts of state or actions.
+
+## Project Redux Structure
+
+Understanding the structure of Redux is crucial for managing state effectively in your project.
+
+### Redux Action Types and Descriptions
+
+- `LOGOUT`: Action to log the user out.
+- `SET_ALL_LOCAL_DATA`: Action to set all local data.
+- `SET_FORM_PAGE`: Action to set the current form page.
+- `SET_LANGUAGE`: Action to change the language.
+- `SET_LOADING`: Action to set loading state.
+- `SET_SELECTED_LOGIN_OPTION`: Action to set the selected login option.
+- `SET_USER_FILES_LOADING`: Action to set user files loading state.
+- `SET_USER_INFO_LOADING`: Action to set user info loading state.
+- `UPDATE_FORM_FIELDS`: Action to update form fields.
+
+### Default Form Data
+
+Default form data inside the Redux store contains initial data for user forms.
+
+### Reducers and Their Core Functions
+
+Reducers are the core functions that update the Redux store. Each reducer responds to a specific action type and updates the state accordingly.
+
+### Initial State of the Reducer
+
+Defines the initial state of the Redux store when the application starts.
+
+## Reducer Functions and Examples
+
+Each reducer responds to a specific action type and updates the Redux store accordingly. Here are some example reducer functions:
+
+#### `SET_LOGIN`
+
+This reducer updates the user's login status and token.
+
+#### `SET_SELECTED_LOGIN_OPTION`
+
+Updates the selected login option.
+
+#### `SET_LANGUAGE`
+
+Changes the application language.
+
+#### `SET_FORM_PAGE`
+
+Updates the current form page.
+
+#### `UPDATE_FORM_FIELDS`
+
+Updates form fields.
+
+#### `LOGOUT`
+
+Logs the user out and resets the state.
+
+#### `SET_ALL_LOCAL_DATA`
+
+Updates all local data.
+
+#### `SET_LOADING`
+
+Updates the loading state.
+
+#### `SET_USER_INFO_LOADING`
+
+Updates the user info loading state.
+
+#### `SET_USER_FILES_LOADING`
+
+Updates the user files loading state.
 
 # Getting Started with Create React App
 

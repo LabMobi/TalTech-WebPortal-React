@@ -10,6 +10,17 @@ This project is aimed at developing digital services for Tallinn University of T
 - Implementing a backend using PHP (Laravel) and exposing a REST API.
 - Simulating databases for the sample solution using MariaDB.
 
+## Project Requirements
+
+Before you begin working on this React project, please ensure that your development environment meets the following requirements:
+
+**Node.js and npm**: This project relies on Node.js and npm for managing dependencies and running scripts. Ensure that you have Node.js installed on your system. You can download and install it from the [Node.js official website](https://nodejs.org/). To verify your Node.js and npm installation, run the following commands in your terminal:
+
+```shell
+node -v
+npm -v
+```
+
 ## Installation and Usage
 
 1. Clone the project repository to your local machine.

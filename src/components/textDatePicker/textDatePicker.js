@@ -11,6 +11,19 @@ import {
   MIN_YEAR,
 } from "../../constants/constants";
 
+/**
+ * A custom date picker component that allows input for day, month, and year.
+ * @param {Object} props - Component props.
+ * @param {function} props.onDayChange - Function to handle day value change.
+ * @param {function} props.onMonthChange - Function to handle month value change.
+ * @param {function} props.onYearChange - Function to handle year value change.
+ * @param {string} props.dayValue - The value of the day input.
+ * @param {string} props.monthValue - The value of the month input.
+ * @param {string} props.yearValue - The value of the year input.
+ * @param {string} props.label - The label for the date picker.
+ * @param {string} props.labelClassName - CSS class for the label.
+ * @returns {JSX.Element} The rendered JSX element.
+ */
 const TextDatePicker = ({
   onDayChange,
   onMonthChange,
@@ -21,6 +34,7 @@ const TextDatePicker = ({
   label,
   labelClassName,
 }) => {
+  // Function to pad a single digit value with leading "0" and ensure it's within min-max range.
   function padSingleDigit(value, min, max) {
     // If the value is empty, set it to "1"
     if (value.length === 0) {

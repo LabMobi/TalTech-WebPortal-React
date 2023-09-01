@@ -5,6 +5,18 @@ import { getCurrentLanguage } from "../../localization/i18n.config";
 import { useTranslation } from "react-i18next";
 import { isMobile as isDeviceMobile } from "react-device-detect";
 
+/**
+ * A custom file uploader component.
+ * @param {Object} props - Component props.
+ * @param {function} props.onChange - Function to handle file selection.
+ * @param {function} props.onRemove - Function to handle file removal.
+ * @param {string} props.label - The label for the file uploader.
+ * @param {string} props.sublabel - Sublabel text for additional information.
+ * @param {Array} props.files - The selected files.
+ * @param {string} props.type - The type of files (e.g., "idCard", "photo").
+ * @param {boolean} props.isLoading - Indicates if the uploader is in a loading state.
+ * @returns {JSX.Element} The rendered JSX element.
+ */
 const CustomFileUploader = ({
   onChange,
   onRemove,

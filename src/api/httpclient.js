@@ -10,10 +10,11 @@ const AxiosInstance = axios.create({
   headers: {},
 });
 
-let requestInProgress = false; // request continue?
+let requestInProgress = false; // Is a request in progress?
 let intervalId = null; // setInterval ID
 let currentLanguage;
 
+// Interceptor before sending Axios requests
 AxiosInstance.interceptors.request.use(
   (config) => {
     requestInProgress = true;
@@ -40,6 +41,7 @@ AxiosInstance.interceptors.request.use(
   }
 );
 
+// Interceptor after receiving Axios responses
 AxiosInstance.interceptors.response.use(
   (response) => {
     requestInProgress = false;
@@ -81,6 +83,7 @@ AxiosInstance.interceptors.response.use(
   }
 );
 
+// Informs the user if a request is still in progress
 function checkRequestInProgress() {
   if (requestInProgress) {
     toast.info(
@@ -91,14 +94,17 @@ function checkRequestInProgress() {
   }
 }
 
+// Starts a setInterval to periodically check the request status
 function startRequestInterval() {
   intervalId = setInterval(checkRequestInProgress, 3000);
 }
 
+// Stops the setInterval
 function stopRequestInterval() {
   clearInterval(intervalId);
 }
 
+// An object managing HTTP requests
 const HttpClient = {
   Post: async (url = "", data = {}, config = undefined) => {
     try {

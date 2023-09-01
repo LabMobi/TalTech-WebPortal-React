@@ -30,6 +30,17 @@ This project is aimed at developing digital services for Tallinn University of T
   - `constants`: Folder to store any kind of constants and enums.
   - `hooks`: This folder contains custom React hooks used to enhance component functionality.
 
+## HttpClient
+
+`HttpClient` is a custom HTTP client designed for making API requests in this project. It is built on top of Axios and provides some additional features for handling requests and responses.
+
+### Features
+
+- Automatic handling of authentication tokens.
+- Request and response logging in development mode.
+- Periodic status checks for ongoing requests.
+- Error handling and toast notifications.
+
   # Redux Documentation
 
 ## Introduction

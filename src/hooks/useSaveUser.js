@@ -2,16 +2,29 @@ import React, { useState } from "react";
 import HttpClient from "../api/httpclient";
 import { logout, setFormPage } from "../redux/actions/app.actions";
 import { useDispatch } from "react-redux";
-
+/**
+ * A custom React hook for saving user data and handling related states.
+ * @returns {Object} An object containing functions and state variables.
+ */
 const useSaveUser = () => {
+  // State variables to track saving/loading and success status
   const [isSavingLoading, setIsSavingLoading] = useState(false);
   const [isSaved, setIsSaved] = useState(false);
+
+  // Redux dispatch function
   const dispatch = useDispatch();
 
+  /**
+   * Saves or confirms user data.
+   * @param {Object} appState - The current application state from Redux.
+   * @param {string} page - The current page ("confirm" or "result").
+   */
   const saveUser = async (appState, page) => {
     const isConfirm = page === "confirm";
     try {
       setIsSavingLoading(true);
+
+      // Prepare data transfer object (DTO) from form fields
       const dto = {
         first_name: appState.formFields.name,
         last_name: appState.formFields.surname,
@@ -65,9 +78,11 @@ const useSaveUser = () => {
             }),
       };
       if (isConfirm) {
+        // Make a POST request to confirm user data
         await HttpClient.Post("/user/confirm", dto);
-        dispatch(setFormPage("result"));
+        dispatch(setFormPage("result")); // Change the form page in Redux
       } else {
+        // Make a PUT request to save user data
         await HttpClient.Put("/user", dto);
       }
 
@@ -85,6 +100,7 @@ const useSaveUser = () => {
     }
   };
 
+  // Return functions and state variables to be used in components
   return { saveUser, isSavingLoading, isSaved };
 };
 

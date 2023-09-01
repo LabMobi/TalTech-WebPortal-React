@@ -94,7 +94,7 @@ Redux is a JavaScript library used to manage application state in a predictable 
 
 ## Project Redux Structure
 
-Understanding the structure of Redux is crucial for managing state effectively in your project.
+Understanding the structure of Redux is crucial for managing state effectively in project.
 
 ### Redux Action Types and Descriptions
 

@@ -12,7 +12,7 @@ const OTPLogin = ({ setIsOTPSent, email }) => {
   const { loading } = useSelector((state) => state.app);
 
   const onContinue = () => {
-    dispatch(verifyOTP({ email, otp }));
+    dispatch(verifyOTP({ email, otp }, t));
   };
 
   const onCancelOTP = () => {

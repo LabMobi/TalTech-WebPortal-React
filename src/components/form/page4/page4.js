@@ -22,7 +22,6 @@ const Page4 = () => {
   const onBack = () => {
     dispatch(setFormPage(3));
   };
-
   const canContinue = useMemo(() => {
     if (formFields.orcIdNotNeeded || formFields.ordIDNumber) {
       return true;

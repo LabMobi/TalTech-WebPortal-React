@@ -18,11 +18,17 @@ import {
   defaultPage5ChildrenForm,
 } from "../reducers/app.reducer";
 import uuid from "react-uuid";
+import { toast } from "taltech-styleguide";
 
-export const verifyOTP = (data) => {
+export const verifyOTP = (data, t) => {
   const { email, otp } = data;
   return async (dispatch) => {
+    let timer;
+
     try {
+      timer = setTimeout(() => {
+        toast.info(t("operation-inprogress"));
+      }, 3000);
       dispatch(actionCreator(SET_LOADING, true));
 
       const response = await HttpClient.Post("/verify-otp", {
@@ -35,14 +41,21 @@ export const verifyOTP = (data) => {
     } catch (error) {
       console.error("An error occurred while verifyOTP:", error);
     } finally {
+      clearTimeout(timer);
+
       dispatch(actionCreator(SET_LOADING, false));
     }
   };
 };
 
-export const getUserInfo = () => {
+export const getUserInfo = (t) => {
   return async (dispatch) => {
+    let timer;
+
     try {
+      timer = setTimeout(() => {
+        toast.info(t("operation-inprogress"));
+      }, 3000);
       dispatch(actionCreator(SET_USER_INFO_LOADING, true));
 
       const response = await HttpClient.Get("/user");
@@ -81,7 +94,7 @@ export const getUserInfo = () => {
             ? response.user?.home_address?.address
             : "",
           ordIDNumber: response.user.orcid,
-          orcIdNotNeeded: response.user.orcid ? false : true,
+          orcIdNotNeeded: false,
           page3EducationForm:
             response.user?.education?.length > 0
               ? response.user.education.map((e) => {
@@ -99,9 +112,9 @@ export const getUserInfo = () => {
                     educationLevel: e.level ?? "",
                     graduatedInstutation: e.school ?? "",
                     numberOfGraduation: e.document_nr ?? "",
-                    graduateDay: documentDay,
-                    graduateMonth: documentMonth,
-                    graduateYear: documentYear,
+                    graduateDay: documentDay ?? "",
+                    graduateMonth: documentMonth ?? "",
+                    graduateYear: documentYear ?? "",
                     id: uuid(), // Generating a unique ID for each form entry
                   };
                 })
@@ -122,28 +135,35 @@ export const getUserInfo = () => {
                   return {
                     firstName: e.firstname ?? "",
                     surName: e.lastname ?? "",
-                    dayOfbirthday: birthdayDay,
-                    monthOfbirthday: birthdayMonth,
-                    yearOfBirthday: birthdayYear,
+                    dayOfbirthday: birthdayDay ?? "",
+                    monthOfbirthday: birthdayMonth ?? "",
+                    yearOfBirthday: birthdayYear ?? "",
                     id: uuid(),
                   };
                 })
               : defaultPage5ChildrenForm,
-          noChildren: response.user.children?.length > 0 ? false : true,
+          noChildren: false,
         };
         dispatch(actionCreator(UPDATE_FORM_FIELDS, userData));
       }
     } catch (error) {
       console.error("An error occurred while getUserInfo:", error);
     } finally {
+      clearTimeout(timer);
+
       dispatch(actionCreator(SET_USER_INFO_LOADING, false));
     }
   };
 };
 
-export const getUserFiles = () => {
+export const getUserFiles = (t) => {
   return async (dispatch) => {
+    let timer;
+
     try {
+      timer = setTimeout(() => {
+        toast.info(t("operation-inprogress"));
+      }, 3000);
       dispatch(actionCreator(SET_USER_FILES_LOADING, true));
 
       const response = await HttpClient.Get("/user/files");
@@ -201,6 +221,8 @@ export const getUserFiles = () => {
     } catch (error) {
       console.error("An error occurred while verifyOTP:", error);
     } finally {
+      clearTimeout(timer);
+
       dispatch(actionCreator(SET_USER_FILES_LOADING, false));
     }
   };

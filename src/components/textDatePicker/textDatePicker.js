@@ -37,7 +37,7 @@ const TextDatePicker = ({
   // Function to pad a single digit value with leading "0" and ensure it's within min-max range.
   function padSingleDigit(value, min, max) {
     // If the value is empty, set it to "1"
-    if (value.length === 0) {
+    if (!value || value.length === 0) {
       value = "1";
     }
     // If the value has only one digit, add a leading "0"

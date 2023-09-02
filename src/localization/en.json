@@ -71,5 +71,8 @@
   "form.page3.numberOfGraduation": "Number of the graduation document",
   "mobile-file-upload-title": "Attach files",
   "are-you-sure-remove-this-part": "Are you sure you want to remove this part?",
-  "page6.submit.modal-text": "Make sure all fields are filled correctly before sending the form"
+  "page6.submit.modal-text": "Make sure all fields are filled correctly before sending the form",
+  "form_submit_success_message": "Form was submitted successfully",
+  "form_saved_success_message": "Form was saved successfully",
+  "operation-inprogress": "The operation is still in progress..."
 }

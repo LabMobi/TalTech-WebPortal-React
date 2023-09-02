@@ -7,6 +7,7 @@ import {
   Input,
   Form,
   FormFeedback,
+  toast,
 } from "taltech-styleguide";
 import "./loginWithEmail.css";
 import { getCurrentLanguage } from "../../localization/i18n.config";
@@ -23,9 +24,14 @@ const LoginWithEmail = ({ setIsOTPSent, email, setEmail }) => {
   const dispatch = useDispatch();
 
   const onSendOTP = async () => {
+    let timer;
+
     try {
       dispatch(setLoading(true));
-
+      // Start timer
+      timer = setTimeout(() => {
+        toast.info(t("operation-inprogress"));
+      }, 3000);
       const response = await HttpClient.Post("/login-otp", {
         email,
       });
@@ -34,6 +40,7 @@ const LoginWithEmail = ({ setIsOTPSent, email, setEmail }) => {
     } catch (error) {
       console.error("An error occurred while loginOTP:", error);
     } finally {
+      clearTimeout(timer);
       dispatch(setLoading(false));
     }
   };

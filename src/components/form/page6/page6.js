@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TTNewButton, Text } from "taltech-styleguide";
+import { TTNewButton, Text, toast } from "taltech-styleguide";
 import CustomFileUploader from "../../customFileUploader/customFileUploader";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
@@ -8,6 +8,7 @@ import ModalComponent from "../../modal";
 import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
 import HttpClient from "../../../api/httpclient";
 import useSaveUser from "../../../hooks/useSaveUser";
+
 const Page6 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -33,8 +34,12 @@ const Page6 = () => {
     }));
     if (field === "") {
     }
+    let timer;
     try {
       if (files.length > 0) {
+        timer = setTimeout(() => {
+          toast.info(t("operation-inprogress"));
+        }, 3000);
         await Promise.all(
           files.map(async (document) => {
             let data = new FormData();
@@ -57,6 +62,8 @@ const Page6 = () => {
       }
     } catch (error) {
     } finally {
+      clearTimeout(timer);
+
       setLoadingStates((prevState) => ({
         ...prevState,
         [field]: false,
@@ -65,7 +72,12 @@ const Page6 = () => {
   };
 
   const onRemove = async (data, field) => {
+    let timer;
+
     try {
+      timer = setTimeout(() => {
+        toast.info(t("operation-inprogress"));
+      }, 3000);
       setLoadingStates((prevState) => ({
         ...prevState,
         [field]: true,
@@ -77,6 +89,8 @@ const Page6 = () => {
       });
     } catch (error) {
     } finally {
+      clearTimeout(timer);
+
       setLoadingStates((prevState) => ({
         ...prevState,
         [field]: false,

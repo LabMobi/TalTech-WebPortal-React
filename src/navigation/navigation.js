@@ -9,16 +9,18 @@ import Page5 from "../components/form/page5/page5";
 import Page6 from "../components/form/page6/page6";
 import Result from "../components/result/result";
 import { getUserFiles, getUserInfo } from "../redux/actions/app.actions";
+import { useTranslation } from "react-i18next";
 
 const Navigation = () => {
   const { isLoggedIn, formPage, token } = useSelector((state) => state.app);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   // Interactive effect that runs when logged in
   useEffect(() => {
     if (isLoggedIn && token) {
-      dispatch(getUserInfo());
-      dispatch(getUserFiles());
+      dispatch(getUserInfo(t));
+      dispatch(getUserFiles(t));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoggedIn, token]);

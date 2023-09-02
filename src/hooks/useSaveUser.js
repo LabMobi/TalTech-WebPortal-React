@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from "react";
 import HttpClient from "../api/httpclient";
 import { logout, setFormPage } from "../redux/actions/app.actions";
@@ -21,10 +22,10 @@ const useSaveUser = () => {
   /**
    * Saves or confirms user data.
    * @param {Object} appState - The current application state from Redux.
-   * @param {string} page - The current page ("confirm" or "result").
+   * @param {string} operation - The current operation ("confirm" or "save").
    */
-  const saveUser = async (appState, page) => {
-    const isConfirm = page === "confirm";
+  const saveUser = async (appState, operation) => {
+    const isConfirm = operation === "confirm";
     let timer;
 
     try {

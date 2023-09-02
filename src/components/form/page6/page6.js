@@ -82,6 +82,7 @@ const Page6 = () => {
         ...prevState,
         [field]: true,
       }));
+      // eslint-disable-next-line no-unused-vars
       const res = await HttpClient.Delete("/file", { path: data.path });
       const copyItems = formFields[field].filter((e) => e.path !== data.path);
       updateFormFields({

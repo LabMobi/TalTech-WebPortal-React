@@ -3,6 +3,15 @@ import { Form, Text } from "taltech-styleguide";
 import "./style.css";
 import { getCurrentLanguage } from "../../localization/i18n.config";
 import { useTranslation } from "react-i18next";
+
+/**
+ * InAdsWidget is a component for address selection.
+ *
+ * @param {string} label - The label to be displayed in the form.
+ * @param {function} onAddressSelect - The function to be called when an address is selected.
+ * @param {string} selectedAddress - The value of the selected address.
+ * @param {function} setIsApartmentSelectionDone - The function to be called when apartment selection is completed.
+ */
 const InAdsWidget = ({
   label,
   onAddressSelect,

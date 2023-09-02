@@ -20,7 +20,8 @@
     "redux": "^4.2.1",
     "redux-thunk": "^2.4.2",
     "taltech-styleguide": "^9.1.6",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "dayjs": "^1.11.9"
   },
   "scripts": {
     "start": "react-scripts start",

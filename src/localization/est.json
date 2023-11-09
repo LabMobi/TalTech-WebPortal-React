@@ -76,5 +76,6 @@
   "form_saved_success_message": "Vorm on edukalt salvestatud",
   "operation-inprogress": "Operatsioon on veel pooleli...",
   "photo": "Pilt",
-  "upload-file": "Lisa fail"
+  "upload-file": "Lisa fail",
+  "select_jpeg_error": "Valige ainult JPEG-vormingus failid."
 }

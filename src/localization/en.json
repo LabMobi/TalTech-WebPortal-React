@@ -76,5 +76,6 @@
   "form_saved_success_message": "Form was saved successfully",
   "operation-inprogress": "The operation is still in progress...",
   "photo": "Photo",
-  "upload-file": "Upload file"
+  "upload-file": "Upload file",
+  "select_jpeg_error": "Please select JPEG format files only."
 }

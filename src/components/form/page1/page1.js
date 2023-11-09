@@ -55,7 +55,13 @@ const Page1 = () => {
 
   const onProfilePhotoUpload = (e) => {
     const selectedFile = e.target.files[0];
-    updateFormFields({ profilePhoto: selectedFile });
+    if (selectedFile) {
+      if (selectedFile.type === "image/jpeg") {
+        updateFormFields({ profilePhoto: selectedFile });
+      } else {
+        alert(t("select_jpeg_error"));
+      }
+    }
   };
 
   const onPhotoRemove = () => {

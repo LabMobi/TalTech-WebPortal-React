@@ -60,9 +60,13 @@ const Page1 = () => {
 
   const onPhotoRemove = () => {
     fileInputRef.current.value = null;
-
-    updateFormFields({ profilePhoto: "" });
+    updateFormFields({ profilePhoto: null });
   };
+
+  const profilePhotoSRC =
+    formFields.profilePhoto instanceof File
+      ? URL.createObjectURL(formFields.profilePhoto)
+      : formFields.profilePhoto;
 
   return (
     <div className="form-page1-container">
@@ -89,7 +93,7 @@ const Page1 = () => {
               <img
                 width={133}
                 height={182}
-                src={URL.createObjectURL(formFields.profilePhoto)}
+                src={profilePhotoSRC}
                 alt="Profile"
               />
               <br />

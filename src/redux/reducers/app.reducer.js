@@ -64,14 +64,14 @@ const defaultFormFields = {
   copyOfIdentity: [],
   photo: [],
   educationDocument: [],
-  profilePhoto: "",
+  profilePhoto: null,
 };
 
 // Initial state for the reducer
 const initialState = {
   loading: false,
   error: {},
-  isLoggedIn: false,
+  isLoggedIn: true,
   selectedLoginOption: LOGIN_OPTIONS.EMAIL,
   formFields: defaultFormFields,
   currentLanguage: "est",

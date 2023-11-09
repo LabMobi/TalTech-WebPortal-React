@@ -120,8 +120,8 @@ const Page1 = () => {
             </label>
           )}
           <input
+            accept=".jpg, .jpeg"
             ref={fileInputRef}
-            accept="image/jpeg"
             onChange={onProfilePhotoUpload}
             id="upload-photo"
             className="photo-upload-input"

@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { CustomInput, Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
@@ -10,6 +10,8 @@ const Page1 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { formFields } = useSelector((state) => state.app);
+  const fileInputRef = useRef(null);
+
   const updateFormFields = (payload) => {
     dispatch(updateForm(payload));
   };
@@ -30,7 +32,8 @@ const Page1 = () => {
         formFields.dayOfbirthday &&
         formFields.monthOfbirthday &&
         formFields.yearOfBirthday &&
-        (formFields.woman || formFields.man))
+        (formFields.woman || formFields.man) &&
+        formFields.profilePhoto)
     ) {
       return true;
     }
@@ -47,7 +50,19 @@ const Page1 = () => {
     formFields.surname,
     formFields.woman,
     formFields.yearOfBirthday,
+    formFields.profilePhoto,
   ]);
+
+  const onProfilePhotoUpload = (e) => {
+    const selectedFile = e.target.files[0];
+    updateFormFields({ profilePhoto: selectedFile });
+  };
+
+  const onPhotoRemove = () => {
+    fileInputRef.current.value = null;
+
+    updateFormFields({ profilePhoto: "" });
+  };
 
   return (
     <div className="form-page1-container">
@@ -58,6 +73,58 @@ const Page1 = () => {
           event.preventDefault();
         }}
       >
+        <div className="photo-upload-container">
+          <Text className="photo-text" color="primary">
+            {t("photo")}:{" "}
+            <Text as="span" className="text-input-required-star" color="danger">
+              *
+            </Text>
+          </Text>
+          {formFields.profilePhoto ? (
+            <div>
+              <img
+                width={133}
+                height={182}
+                src={URL.createObjectURL(formFields.profilePhoto)}
+                alt="Profile"
+              />
+              <br />
+              <TTNewButton
+                className="page1-remove"
+                onClick={onPhotoRemove}
+                variant="link"
+              >
+                {t("remove")}
+              </TTNewButton>
+            </div>
+          ) : (
+            <label
+              className="upload-photo-label"
+              for="upload-photo"
+              class="btn"
+            >
+              <Text
+                as="span"
+                className="upload-photo-placeholder-text"
+                color="danger"
+              >
+                {t("upload-file")}
+              </Text>
+              <br />
+              <Text className="upload-photo-format-text" color="gray-600">
+                (JPG, PNG)
+              </Text>
+            </label>
+          )}
+          <input
+            ref={fileInputRef}
+            accept="image/*"
+            onChange={onProfilePhotoUpload}
+            id="upload-photo"
+            className="photo-upload-input"
+            type="file"
+          />
+        </div>
         <TextInput
           value={formFields.name}
           onChange={(val) => updateFormFields({ name: val })}

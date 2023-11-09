@@ -74,5 +74,7 @@
   "page6.submit.modal-text": "Make sure all fields are filled correctly before sending the form",
   "form_submit_success_message": "Form was submitted successfully",
   "form_saved_success_message": "Form was saved successfully",
-  "operation-inprogress": "The operation is still in progress..."
+  "operation-inprogress": "The operation is still in progress...",
+  "photo": "Photo",
+  "upload-file": "Upload file"
 }

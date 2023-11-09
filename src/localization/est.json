@@ -74,5 +74,7 @@
   "page6.submit.modal-text": "Enne vormi saatmist veendu, et kõik väljad on korrektselt täidetud",
   "form_submit_success_message": "Vorm on edukalt saadetud",
   "form_saved_success_message": "Vorm on edukalt salvestatud",
-  "operation-inprogress": "Operatsioon on veel pooleli..."
+  "operation-inprogress": "Operatsioon on veel pooleli...",
+  "photo": "Pilt",
+  "upload-file": "Lise fail"
 }

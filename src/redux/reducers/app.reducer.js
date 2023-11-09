@@ -64,6 +64,7 @@ const defaultFormFields = {
   copyOfIdentity: [],
   photo: [],
   educationDocument: [],
+  profilePhoto: "",
 };
 
 // Initial state for the reducer

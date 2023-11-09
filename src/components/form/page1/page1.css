@@ -19,6 +19,9 @@
   .page1-gender-checkboxes {
     margin-left: 0 !important;
   }
+  .photo-upload-container {
+    display: block !important;
+  }
 }
 
 .page1-nationality {
@@ -26,4 +29,36 @@
 }
 .page1-continue {
   margin-top: 24px;
+}
+
+.photo-text {
+  width: 220px;
+  min-width: 220px;
+}
+
+.photo-upload-container {
+  display: flex;
+  align-items: center;
+}
+
+.photo-upload-container input[type="file"]::file-selector-button {
+  visibility: hidden;
+}
+.photo-upload-container .btn {
+  margin: 0 !important;
+  padding: 0 !important;
+  text-align: left;
+}
+
+/* no file chosen text */
+#upload-photo {
+  visibility: hidden;
+}
+.upload-photo-format-text {
+  text-align: left;
+}
+
+.page5-remove {
+  text-decoration: underline;
+  margin-top: 16px;
 }

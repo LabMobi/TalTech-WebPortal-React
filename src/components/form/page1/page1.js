@@ -73,7 +73,11 @@ const Page1 = () => {
           event.preventDefault();
         }}
       >
-        <div className="photo-upload-container">
+        <div
+          className={`photo-upload-container ${
+            formFields.profilePhoto ? "mobile-photo-upload-container" : ""
+          }`}
+        >
           <Text className="photo-text" color="primary">
             {t("photo")}:{" "}
             <Text as="span" className="text-input-required-star" color="danger">

@@ -91,8 +91,7 @@ const Page1 = () => {
           {formFields.profilePhoto ? (
             <div>
               <img
-                width={133}
-                height={182}
+                className="page1-profile-photo"
                 src={profilePhotoSRC}
                 alt="Profile"
               />
@@ -111,22 +110,18 @@ const Page1 = () => {
               for="upload-photo"
               class="btn"
             >
-              <Text
-                as="span"
-                className="upload-photo-placeholder-text"
-                color="danger"
-              >
+              <Text as="span" className="upload-photo-placeholder-text">
                 {t("upload-file")}
               </Text>
               <br />
               <Text className="upload-photo-format-text" color="gray-600">
-                (JPG, PNG)
+                (JPG)
               </Text>
             </label>
           )}
           <input
             ref={fileInputRef}
-            accept="image/*"
+            accept="image/jpeg"
             onChange={onProfilePhotoUpload}
             id="upload-photo"
             className="photo-upload-input"

@@ -71,7 +71,7 @@ const defaultFormFields = {
 const initialState = {
   loading: false,
   error: {},
-  isLoggedIn: true,
+  isLoggedIn: false,
   selectedLoginOption: LOGIN_OPTIONS.EMAIL,
   formFields: defaultFormFields,
   currentLanguage: "est",

@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { CustomInput, Form, TTNewButton, Text } from "taltech-styleguide";
 import TextInput from "../../textInput";
 import { useTranslation } from "react-i18next";
@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import "./page1.css";
 import TextDatePicker from "../../textDatePicker/textDatePicker";
 import { setFormPage, updateForm } from "../../../redux/actions/app.actions";
+import HttpClient from "../../../api/httpclient";
 const Page1 = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const { formFields } = useSelector((state) => state.app);
+  const { formFields, token } = useSelector((state) => state.app);
   const fileInputRef = useRef(null);
+  const [profilPhotoUploading, setProfilPhotoUploading] = useState(false);
 
   const updateFormFields = (payload) => {
     dispatch(updateForm(payload));
@@ -22,18 +24,18 @@ const Page1 = () => {
 
   const canContinue = useMemo(() => {
     if (
-      (!formFields.doNotHaveAnIDNumber &&
+      ((!formFields.doNotHaveAnIDNumber &&
         formFields.name &&
         formFields.surname &&
         formFields.nationality &&
         formFields.countryOfTaxResidence &&
         formFields.iban) ||
-      (formFields.doNotHaveAnIDNumber &&
-        formFields.dayOfbirthday &&
-        formFields.monthOfbirthday &&
-        formFields.yearOfBirthday &&
-        (formFields.woman || formFields.man) &&
-        formFields.profilePhoto)
+        (formFields.doNotHaveAnIDNumber &&
+          formFields.dayOfbirthday &&
+          formFields.monthOfbirthday &&
+          formFields.yearOfBirthday &&
+          (formFields.woman || formFields.man))) &&
+      formFields.profilePhoto
     ) {
       return true;
     }
@@ -53,27 +55,48 @@ const Page1 = () => {
     formFields.profilePhoto,
   ]);
 
-  const onProfilePhotoUpload = (e) => {
+  const onProfilePhotoUpload = async (e) => {
     const selectedFile = e.target.files[0];
     if (selectedFile) {
       if (selectedFile.type === "image/jpeg") {
-        updateFormFields({ profilePhoto: selectedFile });
+        try {
+          setProfilPhotoUploading(true);
+          let data = new FormData();
+          data.append("file", selectedFile);
+          data.append("context", "profilePhoto");
+          const res = await HttpClient.Post("/file", data);
+
+          const response = await fetch(
+            `https://taltech.appit.cloud/api/file?path=${res.path}&context=profilePhoto`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          const imageBlob = await response.blob();
+          const imageObjectURL = URL.createObjectURL(imageBlob);
+
+          const uploadedImg = {
+            name: selectedFile.name,
+            img: imageObjectURL,
+            path: res.path,
+          };
+          updateFormFields({ profilePhoto: uploadedImg });
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setProfilPhotoUploading(false);
+        }
       } else {
         alert(t("select_jpeg_error"));
       }
     }
   };
 
-  const onPhotoRemove = () => {
+  const onPhotoRemove = async () => {
+    await HttpClient.Delete("/file", {
+      path: formFields.profilePhoto.path,
+    });
     fileInputRef.current.value = null;
     updateFormFields({ profilePhoto: null });
   };
-
-  const profilePhotoSRC =
-    formFields.profilePhoto instanceof File
-      ? URL.createObjectURL(formFields.profilePhoto)
-      : formFields.profilePhoto;
-
   return (
     <div className="form-page1-container">
       <Text as="h3">{t("form.page1.title")}</Text>
@@ -85,7 +108,7 @@ const Page1 = () => {
       >
         <div
           className={`photo-upload-container ${
-            formFields.profilePhoto ? "mobile-photo-upload-container" : ""
+            formFields.profilePhoto?.img ? "mobile-photo-upload-container" : ""
           }`}
         >
           <Text className="photo-text" color="primary">
@@ -98,7 +121,7 @@ const Page1 = () => {
             <div>
               <img
                 className="page1-profile-photo"
-                src={profilePhotoSRC}
+                src={formFields?.profilePhoto?.img}
                 alt="Profile"
               />
               <br />
@@ -110,6 +133,10 @@ const Page1 = () => {
                 {t("remove")}
               </TTNewButton>
             </div>
+          ) : profilPhotoUploading ? (
+            <Text className="upload-photo-format-text" color="gray-600">
+              {t("file_uploading")}
+            </Text>
           ) : (
             <label
               className="upload-photo-label"

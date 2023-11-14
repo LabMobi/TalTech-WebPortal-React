@@ -77,5 +77,6 @@
   "operation-inprogress": "The operation is still in progress...",
   "photo": "Photo",
   "upload-file": "Upload file",
-  "select_jpeg_error": "Please select JPEG format files only."
+  "select_jpeg_error": "Please select JPEG format files only.",
+  "file_uploading": "Uploading file..."
 }

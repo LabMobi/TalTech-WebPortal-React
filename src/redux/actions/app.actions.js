@@ -19,6 +19,7 @@ import {
 } from "../reducers/app.reducer";
 import uuid from "react-uuid";
 import { toast } from "taltech-styleguide";
+import { store } from "../store/store";
 
 export const verifyOTP = (data, t) => {
   const { email, otp } = data;
@@ -186,8 +187,8 @@ export const getUserFiles = (t) => {
           return dateB - dateA;
         });
 
-        let lastAddedCopyOfIdentity;
         // Get the most recently added "copyOfIdentity" item
+        let lastAddedCopyOfIdentity;
         if (copyOfIdentityFiles.length > 0) {
           lastAddedCopyOfIdentity = copyOfIdentityFiles[0];
         } else {
@@ -200,15 +201,36 @@ export const getUserFiles = (t) => {
           const dateB = new Date(b.created_at);
           return dateB - dateA;
         });
-        let lastAddedPhoto;
+
         // Get the most recently added "photo" item
+        let lastAddedPhoto;
         if (photoFiles.length > 0) {
           lastAddedPhoto = photoFiles[0];
         } else {
           // console.log("Photo not found.");
         }
 
+        // Get user profile photo
+        const profilePhoto = response.files.find(
+          (e) => e.context === "profilePhoto"
+        );
+        const profilePhotoPayload = {};
+        if (profilePhoto) {
+          profilePhotoPayload.path = profilePhoto.path;
+          profilePhotoPayload.name = profilePhoto.name;
+          const state = store.getState();
+          const token = state?.app?.token;
+          const ppResponse = await fetch(
+            `https://taltech.appit.cloud/api/file?path=${profilePhoto.path}&context=profilePhoto`,
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          const imageBlob = await ppResponse.blob();
+          const imageObjectURL = URL.createObjectURL(imageBlob);
+          profilePhotoPayload.img = imageObjectURL;
+        }
+
         const data = {
+          profilePhoto: profilePhotoPayload.img ? profilePhotoPayload : null,
           copyOfIdentity: lastAddedCopyOfIdentity
             ? [lastAddedCopyOfIdentity]
             : [],

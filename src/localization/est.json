@@ -77,5 +77,6 @@
   "operation-inprogress": "Operatsioon on veel pooleli...",
   "photo": "Pilt",
   "upload-file": "Lisa fail",
-  "select_jpeg_error": "Valige ainult JPEG-vormingus failid."
+  "select_jpeg_error": "Valige ainult JPEG-vormingus failid.",
+  "file_uploading": "Faili üleslaadimine..."
 }

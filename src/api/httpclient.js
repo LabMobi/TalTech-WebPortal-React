@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "taltech-styleguide";
 import { store } from "../redux/store/store";
+import { getCurrentLanguage } from "../localization/i18n.config";
 
 const BASE_URL = `https://taltech.appit.cloud/api`;
 
@@ -46,27 +47,22 @@ AxiosInstance.interceptors.response.use(
     if (process.env.NODE_ENV === "development") {
       console.log(">>>RESPONSE ERROR", { error });
     }
-
-    if (error?.response?.data?.error) {
-      toast.error(
-        `${error.response.data.error} - Code: ${
-          error.response?.status || error.response?.code
-        }`
-      );
-    } else if (error?.response?.data?.message) {
-      toast.error(
-        `${error.response.data.message} - Code: ${
-          error.response?.status || error.response?.code
-        }`
-      );
-    } else if (error.message) {
-      toast.error(
-        `${error.message} - Code: ${
-          error.response?.status || error.response?.code
-        }`
-      );
+    if (error?.response?.data?.error === "Invalid or expired OTP") {
+      const otpErrorMessage =
+        getCurrentLanguage() === "est"
+          ? "Kehtetu või aegunud kontrollkood"
+          : "Invalid or expired verification code";
+      toast.error(otpErrorMessage);
+      error.response.data.error = otpErrorMessage;
+    } else {
+      if (error?.response?.data?.error) {
+        toast.error(error.response.data.error);
+      } else if (error?.response?.data?.message) {
+        toast.error(error.response.data.message);
+      } else if (error.message) {
+        toast.error(error.message);
+      }
     }
-
     return Promise.reject(error);
   }
 );

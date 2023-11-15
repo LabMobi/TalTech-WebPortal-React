@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { TTNewButton, Text, Input, Form } from "taltech-styleguide";
+import {
+  TTNewButton,
+  Text,
+  Input,
+  Form,
+  FormFeedback,
+} from "taltech-styleguide";
 import "./otpLogin.css";
 import { useDispatch, useSelector } from "react-redux";
 import { verifyOTP } from "../../redux/actions/app.actions";
@@ -10,9 +16,14 @@ const OTPLogin = ({ setIsOTPSent, email }) => {
   const dispatch = useDispatch();
   const [otp, setOTP] = useState("");
   const { loading } = useSelector((state) => state.app);
+  const [otpErrorMessage, setOtpErrorMessage] = useState("");
+
+  const onError = (errorMsg) => {
+    setOtpErrorMessage(errorMsg);
+  };
 
   const onContinue = () => {
-    dispatch(verifyOTP({ email, otp }, t));
+    dispatch(verifyOTP({ email, otp }, t, onError));
   };
 
   const onCancelOTP = () => {
@@ -42,6 +53,9 @@ const OTPLogin = ({ setIsOTPSent, email }) => {
           default
           placeholder=""
         />
+        {otpErrorMessage && (
+          <FormFeedback type="danger">{otpErrorMessage}</FormFeedback>
+        )}
       </Form>
       <div className="d-flex align-items-center">
         <TTNewButton

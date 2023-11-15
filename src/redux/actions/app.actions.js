@@ -21,7 +21,7 @@ import uuid from "react-uuid";
 import { toast } from "taltech-styleguide";
 import { store } from "../store/store";
 
-export const verifyOTP = (data, t) => {
+export const verifyOTP = (data, t, onError) => {
   const { email, otp } = data;
   return async (dispatch) => {
     let timer;
@@ -40,6 +40,7 @@ export const verifyOTP = (data, t) => {
         actionCreator(SET_LOGIN, { isLoggedIn: true, token: response.token })
       );
     } catch (error) {
+      onError && onError(error?.response?.data?.error);
       console.error("An error occurred while verifyOTP:", error);
     } finally {
       clearTimeout(timer);

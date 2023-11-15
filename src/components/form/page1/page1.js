@@ -19,21 +19,21 @@ const Page1 = () => {
   const onContinue = () => {
     dispatch(setFormPage(2));
   };
-
+  console.log(formFields);
   const canContinue = useMemo(() => {
     if (
-      ((!formFields.doNotHaveAnIDNumber &&
-        formFields.name &&
-        formFields.surname &&
-        formFields.nationality &&
-        formFields.countryOfTaxResidence &&
-        formFields.iban) ||
+      ((!formFields.doNotHaveAnIDNumber && formFields.personalIDNumber) ||
         (formFields.doNotHaveAnIDNumber &&
           formFields.dayOfbirthday &&
           formFields.monthOfbirthday &&
           formFields.yearOfBirthday &&
           (formFields.woman || formFields.man))) &&
-      formFields.profilePhoto
+      formFields.profilePhoto &&
+      formFields.name &&
+      formFields.surname &&
+      formFields.nationality &&
+      formFields.countryOfTaxResidence &&
+      formFields.iban
     ) {
       return true;
     }
@@ -51,6 +51,7 @@ const Page1 = () => {
     formFields.woman,
     formFields.yearOfBirthday,
     formFields.profilePhoto,
+    formFields.personalIDNumber,
   ]);
 
   return (

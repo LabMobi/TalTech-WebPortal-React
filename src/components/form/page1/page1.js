@@ -19,7 +19,6 @@ const Page1 = () => {
   const onContinue = () => {
     dispatch(setFormPage(2));
   };
-  console.log(formFields);
   const canContinue = useMemo(() => {
     if (
       ((!formFields.doNotHaveAnIDNumber && formFields.personalIDNumber) ||

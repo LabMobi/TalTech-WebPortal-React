@@ -212,6 +212,134 @@ Updates the user info loading state.
 
 Updates the user files loading state.
 
+## Added Components
+
+# ProfilePhotoUploader Component
+
+The `ProfilePhotoUploader` component is a React component that enables users to upload and manage their profile photo.
+
+## Usage
+
+```jsx
+import React from "react";
+import ProfilePhotoUploader from "path/to/ProfilePhotoUploader";
+
+const YourComponent = () => {
+  // ... other component code ...
+
+  return (
+    <div>
+      {/* ... other component content ... */}
+      <ProfilePhotoUploader />
+      {/* ... other component content ... */}
+    </div>
+  );
+};
+
+export default YourComponent;
+```
+
+# Purpose and Usage in TalTech Design System
+
+The `ProfilePhotoUploader` component was added to extend the functionality of the TalTech design system. It serves the purpose of allowing users to upload and manage their profile photos within the user interface.
+
+## Why it was Added
+
+The component was added to meet the specific need of enabling users to interact with their profile photos. This addition addresses the requirement for users to have a seamless experience when uploading, removing, and displaying their profile pictures.
+
+## How to Use
+
+1. **Display Profile Photo**: If a profile photo exists in the Redux store, it will be displayed. The user can see their current profile photo along with the option to remove it.
+
+2. **Upload Photo Button**: If there is no profile photo or it has been removed, a button is provided for the user to upload a new photo. Only files with the "jpg" and "jpeg" extensions are accepted.
+
+3. **Remove Photo**: Users can remove their current profile photo by clicking the "Remove" link.
+
+## Future Integration with TalTech Design System
+
+The decision to integrate this component into the TalTech design system is yet to be determined. The component was initially added to meet a specific use case, and its integration into the design system will depend on further evaluation and consensus among the development team.
+
+# TextDatePicker Component
+
+The `TextDatePicker` component is a custom date picker designed for the TalTech UI. It allows users to input day, month, and year, providing a seamless experience for managing dates within the user interface.
+
+## Elements Added to TalTech Design System
+
+Yes, there are new elements added to the TalTech design system:
+
+1. **TextDatePicker**: A custom date picker component.
+2. **TextInput**: A text input component used within `TextDatePicker`.
+
+## What Was Added?
+
+### TextDatePicker Component
+
+The `TextDatePicker` component is a specialized date picker with the following features:
+
+- Input for day, month, and year.
+- Automatic formatting and validation for date values.
+- Seamless integration with the TalTech design system.
+
+### TextInput Component
+
+The `TextInput` component is a reusable text input element used within `TextDatePicker` for handling individual day, month, and year inputs.
+
+## Why Was it Added?
+
+The `TextDatePicker` component was added to fulfill the need for a user-friendly and accessible date picker within the TalTech UI. It provides users with a straightforward way to input and manage dates, ensuring a positive user experience.
+
+**Developer Feedback:**
+When attempting to use the default TalTech date picker component, it did not work as expected. The date picker did not open, prompting the need to create the `TextDatePicker` component.
+
+## How to Use
+
+### TextDatePicker Component
+
+#### Props
+
+- `onDayChange` (function): Function to handle day value change.
+- `onMonthChange` (function): Function to handle month value change.
+- `onYearChange` (function): Function to handle year value change.
+- `dayValue` (string): The value of the day input.
+- `monthValue` (string): The value of the month input.
+- `yearValue` (string): The value of the year input.
+- `label` (string): The label for the date picker.
+- `labelClassName` (string): CSS class for the label.
+
+#### Usage
+
+```jsx
+import React from "react";
+import TextDatePicker from "path/to/TextDatePicker";
+
+const YourComponent = () => {
+  // ... other component code ...
+
+  return (
+    <div>
+      {/* ... other component content ... */}
+      <TextDatePicker
+        onDayChange={/* your function */}
+        onMonthChange={/* your function */}
+        onYearChange={/* your function */}
+        dayValue={/* day value */}
+        monthValue={/* month value */}
+        yearValue={/* year value */}
+        label={"Date Picker"}
+        labelClassName={"your-label-class"}
+      />
+      {/* ... other component content ... */}
+    </div>
+  );
+};
+
+export default YourComponent;
+```
+
+## Future Integration with TalTech Design System
+
+The decision regarding the integration of the `TextDatePicker` component and its associated elements into the TalTech design system is currently pending. Further evaluation and consensus among the development team will determine whether these elements should be incorporated into the design system or if they will remain specific to the UI for which they were created.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
